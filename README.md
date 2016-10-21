@@ -25,3 +25,12 @@ Add the following to .gitignore:
     *.pyc
     __pycache__
     *.SQLite3
+
+### Remember:
+python dependencies
+node dependencies
+migrate to create initial db
+
+### Running locally:
+django dev server
+npm start
