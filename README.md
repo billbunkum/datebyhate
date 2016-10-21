@@ -4,4 +4,14 @@ Starting point for Django, Django Rest Framework, Angular, Webpack and Gulp proj
 
 See the using-django-seed.md in the docs for usage.
 
-**Replace the contents of this doc with a README for your project**
+## FlixChill - final bootcamp project
+
+Uses Django + DjangoREST Framework + Angular (components)
+
+A dating-style app based on comparing movie 'interests'.
+
+## Set up
+
+`$ mkvirtualenv flixchill`
+`$ pip install -r requirements.txt`
+
