@@ -28,9 +28,13 @@ Add the following to .gitignore:
 
 ### Remember:
 python dependencies
+
 node dependencies
+
 migrate to create initial db
 
 ### Running locally:
+
 django dev server
+
 npm start
