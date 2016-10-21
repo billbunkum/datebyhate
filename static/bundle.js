@@ -68,7 +68,7 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var AppModule = _angular2.default.module('app', []).component('app', _app2.default);
+	var AppModule = _angular2.default.module('root', []).component('app', _app2.default);
 	
 	exports.default = AppModule;
 
@@ -31885,7 +31885,7 @@
 /* 5 */
 /***/ function(module, exports) {
 
-	module.exports = "<header>\n    <nav class=\"navbar navbar-inverse navbar-static-top\">\n        <div class=\"container-fluid\">\n            <div class=\"navbar-header\">\n                <span class=\"navbar-brand\">\n                    <i class=\"fa fa-thumbs-o-up\"></i> FlixChill\n                </span>\n            </div>\n        </div>\n    </nav>\n</header>\n<div class=\"container-fluid\">\n    Angular is working???\n</div>"
+	module.exports = "<header>\n    <nav class=\"navbar navbar-inverse navbar-static-top\">\n        <div class=\"container-fluid\">\n            <div class=\"navbar-header\">\n                <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#navie\" aria-expanded=\"false\">\n                    <span class=\"sr-only\">Toggle Navigation</span>\n                    <span class=\"icon-bar\"></span>\n                    <span class=\"icon-bar\"></span>\n                    <span class=\"icon-bar\"></span>\n                </button>\n\n                <span class=\"navbar-brand\">\n                    <i class=\"fa fa-film\" aria-hidden=\"true\"></i> \n                    FlixChill\n                    <i class=\"fa fa-heart\" aria-hidden=\"true\"></i>\n                </span>\n            </div>\n\n            <div class=\"collapse navbar-collapse\" id=\"navie\">\n                <ul class=\"nav navbar-nav pull-right\">\n                    <li>\n                        <a href=\"#\"><i class=\"fa fa-female\" aria-hidden=\"true\"></i>\n                        My Interests\n                        </a>\n                    </li>\n                    <li>\n                        <a href=\"#\"><i class=\"fa fa-users\" aria-hidden=\"true\"></i>\n                        Interest Gallery\n                        </a>\n                    </li>\n                </ul>\n            </div>\n        </div>\n    </nav>\n</header>\n<div class=\"container-fluid\">\n    Let's Chill\n</div>"
 
 /***/ },
 /* 6 */
