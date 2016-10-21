@@ -10,8 +10,18 @@ Uses Django + DjangoREST Framework + Angular (components)
 
 A dating-style app based on comparing movie 'interests'.
 
-## Set up
+## Dev Set up
 
 `$ mkvirtualenv flixchill`
+
+Clone Git repo and `pushd` into it (make sure you have the DjangoSeed & file structure; webpack, gulp, etc.)
+
 `$ pip install -r requirements.txt`
 
+`$ touch .gitignore`
+
+Add the following to .gitignore:
+
+    *.pyc
+    __pycache__
+    *.SQLite3
