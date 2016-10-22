@@ -16,5 +16,7 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^api/', include('api.urls', namespace='api')),
+#   there is no 'namespace' for api in sups board
     url(r'^', include('core.urls', namespace='core')),
 ]
