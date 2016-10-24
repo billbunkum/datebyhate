@@ -1,0 +1,13 @@
+<!-- interestPageCtrl -->
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        Search results:
+        <button ng-click="interestPageCtrl.searchFilms()">Text</button>
+        <p ng-repeat="film in interestPageCtrl.films">
+            {{ film }}
+        </p>
+    </div>
+<pre>{{interestPageCtrl.films | json}}</pre>
+    <div class="col-md-4"></div>
+</div>
