@@ -30,6 +30,7 @@ INSTALLED_APPS = (
     'rest_framework',
     'core',
     'interest',
+    'accounts',
 )
 
 MIDDLEWARE_CLASSES = (
