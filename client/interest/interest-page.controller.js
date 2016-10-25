@@ -9,24 +9,21 @@ function interestPageController(omdbAPI) {
     ctrl.search_capture = null; //what is typed by user
 
     function searchFilms($http) {
-        if (ctrl.search_type == "title") {
-
-            ctrl.title = "t=" + ctrl.search_capture; //clarifying endpoint for omdbapi
-            console.log(ctrl.title);
-
+//        if (ctrl.search_type == "title") {
 
 //don't understand!!!!
-            ctrl.films = $http.get('omdbAPI.titles' + ctrl.title, config).then(successfulCallback, errorCallback);
-            // omdbAPI.titles.get().$promise.then( 
-            //     (data) => {
-            //         ctrl.films = data.Search; 
-//                    console.log(data);
-                    
-                    ctrl.search_history.push(ctrl.films);
-                    ctrl.films = null;
-                    console.log(ctrl.search_history);
-                });
-        };
+//http://www.omdbapi.com/?"
+            ctrl.films = omdbAPI.titles.query({
+                t: ctrl.search_capture
+            }).$promise.then( (data) => {
+                ctrl.films = data.Search;
+                console.log(data);
+                }
+            );
+
+            ctrl.search_history.push(ctrl.films);
+            ctrl.films = null;
+            console.log(ctrl.search_history);
     }
 
     ctrl.searchFilms = searchFilms;

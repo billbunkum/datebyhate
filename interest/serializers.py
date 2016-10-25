@@ -12,11 +12,10 @@ class UserSerializer(serializers.ModelSerializer):
 class FilmSerializer(serializers.ModelSerializer):
     class Meta:
         model = Film
-        fields = ('title', 'genre', 'director', 'id', )
+        fields = ('title', 'genre', 'director', )
 
 class InterestSerializer(serializers.ModelSerializer):
-    user = UserSerializer()
+    # user = UserSerializer()
     class Meta:
         model = Interest
-        fields = ( 'user', 'date', 'film', 'id', )
-        read_only = ( 'user', 'date', 'film' 'id', )
+        fields = ( 'date', 'user_id', 'film_id', )

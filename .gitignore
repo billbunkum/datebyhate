@@ -1,6 +1,7 @@
 *.pyc
 __pycache__
-*.SQLite3
+*.sqlite3
+
 
 node_modules/
 npm-debug.log
