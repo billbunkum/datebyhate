@@ -32849,11 +32849,12 @@
 	});
 	
 	function omdbAPI($resource) {
-	    var omdb = {
-	        titles: $resource("http://www.omdbapi.com/?")
-	    };
+	    // const omdb = {
+	    //     titles: $resource("http://www.omdbapi.com/?"),
+	    // };
 	
-	    return omdb;
+	    // return omdb;
+	    return $resource("http://www.omdbapi.com/?");
 	}
 	
 	exports.default = omdbAPI;
@@ -32872,7 +32873,7 @@
 	
 	var _interestPage2 = _interopRequireDefault(_interestPage);
 	
-	var _interestPage3 = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./interest-page.controller\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var _interestPage3 = __webpack_require__(14);
 	
 	var _interestPage4 = _interopRequireDefault(_interestPage3);
 	
@@ -32891,6 +32892,42 @@
 /***/ function(module, exports) {
 
 	module.exports = "<!-- interestPageCtrl -->\n<div class=\"row\">\n    <div class=\"col-md-4\">\n        <form>\n            <div class=\"form-group\">\n                <label for=\"this\">Search Films</label>\n                <input type=\"text\" \n                    class=\"form-control\" \n                    id=\"this\" \n                    ng-model=\"interestPageCtrl.search_capture\" \n                    placeholder=\"Type search here\">\n            </div>\n\n            <button type=\"submit\" \n                    class=\"btn btn-default\" \n                    ng-click=\"interestPageCtrl.searchFilms()\">\n                        Search\n            </button>\n        </form>\n    </div>\n</div>\n\n<div class=\"row\">\n    <div class=\"col-md-5\">\n        \n    </div>\n    <div class=\"col-md-2\"></div>\n    <div class=\"col-md-5\">\n        <!-- Others who are also 'interested' -->\n    </div>\n</div>"
+
+/***/ },
+/* 14 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	
+	function interestPageController(omdbAPI) {
+	    var ctrl = this;
+	    ctrl.searchHistory = []; //an array of all data returned from omdbapi
+	    ctrl.films = null; //objects of data returned from omdbapi
+	    ctrl.search_type = "title"; // specifies the 't' param for omdbapi
+	    ctrl.title = null; // string 't='
+	    ctrl.search_capture = null; //what is typed by user
+	
+	    function searchFilms() {
+	        omdbAPI.get({
+	            t: ctrl.search_capture
+	        }).$promise.then(function (data) {
+	            ctrl.films = data;
+	            ctrl.searchHistory.push(data);
+	            console.log(data);
+	        });
+	
+	        //  ADD ERROR MSG if search returns 'false'
+	    } // END searchFilms
+	
+	    ctrl.searchFilms = searchFilms;
+	};
+	
+	exports.default = interestPageController;
 
 /***/ }
 /******/ ]);
