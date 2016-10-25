@@ -6,17 +6,17 @@ from .models import Interest, Film
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('email', 'username', )
+        fields = ('username', 'email', 'last_login', 'date_joined', 'id', )
+        read_only = ('last_login', 'date_joined', 'id', )
 
 class FilmSerializer(serializers.ModelSerializer):
     class Meta:
         model = Film
-        fields = ('title', 'genre', 'director', )
-        read_only = ('genre', 'director', )
+        fields = ('title', 'genre', 'director', 'id', )
 
 class InterestSerializer(serializers.ModelSerializer):
     user = UserSerializer()
     class Meta:
         model = Interest
-        fields = ( 'date', 'user', 'film', )
-        read_only = ( 'date', )
+        fields = ( 'user', 'date', 'film', 'id', )
+        read_only = ( 'user', 'date', 'film' 'id', )

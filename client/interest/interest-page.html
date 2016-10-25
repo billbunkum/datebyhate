@@ -1,13 +1,31 @@
 <!-- interestPageCtrl -->
 <div class="row">
-    <div class="col-md-4"></div>
     <div class="col-md-4">
-        Search results:
-        <button ng-click="interestPageCtrl.searchFilms()">Text</button>
-        <p ng-repeat="film in interestPageCtrl.films">
-            {{ film }}
-        </p>
+        <form>
+            <div class="form-group">
+                <label for="this">Search Films</label>
+                <input type="text" 
+                    class="form-control" 
+                    id="this" 
+                    ng-model="interestPageCtrl.search_capture" 
+                    placeholder="Type search here">
+            </div>
+
+            <button type="submit" 
+                    class="btn btn-default" 
+                    ng-click="interestPageCtrl.searchFilms()">
+                        Search
+            </button>
+        </form>
     </div>
-<pre>{{interestPageCtrl.films | json}}</pre>
-    <div class="col-md-4"></div>
+</div>
+
+<div class="row">
+    <div class="col-md-5">
+        
+    </div>
+    <div class="col-md-2"></div>
+    <div class="col-md-5">
+        <!-- Others who are also 'interested' -->
+    </div>
 </div>

@@ -32850,7 +32850,7 @@
 	
 	function omdbAPI($resource) {
 	    var omdb = {
-	        titles: $resource("http://www.omdbapi.com/?s=space")
+	        titles: $resource("http://www.omdbapi.com/?")
 	    };
 	
 	    return omdb;
@@ -32872,7 +32872,7 @@
 	
 	var _interestPage2 = _interopRequireDefault(_interestPage);
 	
-	var _interestPage3 = __webpack_require__(14);
+	var _interestPage3 = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./interest-page.controller\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
 	
 	var _interestPage4 = _interopRequireDefault(_interestPage3);
 	
@@ -32890,34 +32890,7 @@
 /* 13 */
 /***/ function(module, exports) {
 
-	module.exports = "<!-- interestPageCtrl -->\n<div class=\"row\">\n    <div class=\"col-md-4\"></div>\n    <div class=\"col-md-4\">\n        Search results:\n        <button ng-click=\"interestPageCtrl.searchFilms()\">Text</button>\n        <p ng-repeat=\"film in interestPageCtrl.films\">\n            {{ film }}\n        </p>\n    </div>\n<pre>{{interestPageCtrl.films | json}}</pre>\n    <div class=\"col-md-4\"></div>\n</div>"
-
-/***/ },
-/* 14 */
-/***/ function(module, exports) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	
-	
-	function interestPageController(omdbAPI) {
-	    var ctrl = this;
-	    ctrl.films = null;
-	
-	    function searchFilms() {
-	        omdbAPI.titles.get().$promise.then(function (data) {
-	            ctrl.films = data.Search;
-	            // console.log(data);
-	        });
-	    }
-	
-	    ctrl.searchFilms = searchFilms;
-	};
-	
-	exports.default = interestPageController;
+	module.exports = "<!-- interestPageCtrl -->\n<div class=\"row\">\n    <div class=\"col-md-4\">\n        <form>\n            <div class=\"form-group\">\n                <label for=\"this\">Search Films</label>\n                <input type=\"text\" \n                    class=\"form-control\" \n                    id=\"this\" \n                    ng-model=\"interestPageCtrl.search_capture\" \n                    placeholder=\"Type search here\">\n            </div>\n\n            <button type=\"submit\" \n                    class=\"btn btn-default\" \n                    ng-click=\"interestPageCtrl.searchFilms()\">\n                        Search\n            </button>\n        </form>\n    </div>\n</div>\n\n<div class=\"row\">\n    <div class=\"col-md-5\">\n        \n    </div>\n    <div class=\"col-md-2\"></div>\n    <div class=\"col-md-5\">\n        <!-- Others who are also 'interested' -->\n    </div>\n</div>"
 
 /***/ }
 /******/ ]);

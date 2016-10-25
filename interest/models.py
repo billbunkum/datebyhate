@@ -14,4 +14,4 @@ class Film(models.Model):
 class Interest(models.Model):
     date = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, null=True, blank=True)
-    film = models.ForeignKey(Film, null=True, blank=True)
+    film = models.ForeignKey(Film, null=True)

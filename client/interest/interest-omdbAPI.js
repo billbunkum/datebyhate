@@ -1,7 +1,7 @@
 
 function omdbAPI($resource) {
     const omdb = {
-        titles: $resource("http://www.omdbapi.com/?s=space"),
+        titles: $resource("http://www.omdbapi.com/?"),
     };
 
     return omdb;
