@@ -18,4 +18,4 @@ class InterestSerializer(serializers.ModelSerializer):
     # user = UserSerializer()
     class Meta:
         model = Interest
-        fields = ( 'date', 'user_id', 'film_id', )
+        fields = ( 'date', 'user', 'film', )

@@ -4,18 +4,41 @@
         <form>
             <div class="form-group">
                 <label for="this">Search Films</label>
-                <input type="text" 
+                <input 
+                    type="text" 
                     class="form-control" 
                     id="this" 
                     ng-model="interestPageCtrl.search_capture" 
-                    placeholder="Type search here">
+                    placeholder="Type title here">
             </div>
 
-            <button type="submit" 
-                    class="btn btn-default" 
-                    ng-click="interestPageCtrl.searchFilms()">
-                        Search
+            <button 
+                type="submit" 
+                class="btn btn-default" 
+                ng-click="interestPageCtrl.searchFilms()">
+                    Search by Title
             </button>
+        </form>
+    </div>
+
+    <div class="col-md-2"></div>
+    <div class="col-md-6">
+        <!-- search output -->
+        <form>
+            <div class="form-group">
+                {{ interestPageCtrl.films.Title }}<br />
+                {{ interestPageCtrl.films.Genre }}<br />
+                {{ interestPageCtrl.films.Type }}<br />
+                <img src="{{ interestPageCtrl.films.Poster }}" width="200px">
+            </div>
+            <button 
+                type="submit" 
+                class="btn btn-default" 
+                ng-click="interestPageCtrl.addInterest(interestPageCtrl.films)"
+            >
+                Interested
+            </button>
+        <pre>{{ interestPageCtrl.films | json }}</pre>
         </form>
     </div>
 </div>

@@ -31889,7 +31889,7 @@
 /* 5 */
 /***/ function(module, exports) {
 
-	module.exports = "<header>\n    <nav class=\"navbar navbar-inverse navbar-static-top\">\n        <div class=\"container-fluid\">\n            <div class=\"navbar-header\">\n                <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#navie\" aria-expanded=\"false\">\n                    <span class=\"sr-only\">Toggle Navigation</span>\n                    <span class=\"icon-bar\"></span>\n                    <span class=\"icon-bar\"></span>\n                    <span class=\"icon-bar\"></span>\n                </button>\n\n                <span class=\"navbar-brand\">\n                    <i class=\"fa fa-film\" aria-hidden=\"true\"></i> \n                    FlixChill\n                    <i class=\"fa fa-heart\" aria-hidden=\"true\"></i>\n                </span>\n            </div>\n\n            <div class=\"collapse navbar-collapse\" id=\"navie\">\n                <ul class=\"nav navbar-nav pull-right\">\n                    <li>\n                        <a href=\"#\"><i class=\"fa fa-female\" aria-hidden=\"true\"></i>\n                        My Interests\n                        </a>\n                    </li>\n                    <li>\n                        <a href=\"#\"><i class=\"fa fa-users\" aria-hidden=\"true\"></i>\n                        Interest Gallery\n                        </a>\n                    </li>\n                </ul>\n            </div>\n        </div>\n    </nav>\n</header>\n<div class=\"container-fluid\">\n    Let's Chill\n    <interest-page />\n</div>"
+	module.exports = "<header>\n    <nav class=\"navbar navbar-inverse navbar-static-top\">\n        <div class=\"container-fluid\">\n            <div class=\"navbar-header\">\n                <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#navie\" aria-expanded=\"false\">\n                    <span class=\"sr-only\">Toggle Navigation</span>\n                    <span class=\"icon-bar\"></span>\n                    <span class=\"icon-bar\"></span>\n                    <span class=\"icon-bar\"></span>\n                </button>\n\n                <span class=\"navbar-brand\">\n                    <i class=\"fa fa-film\" aria-hidden=\"true\"></i> \n                    FlixChill\n                    <i class=\"fa fa-heart\" aria-hidden=\"true\"></i>\n                </span>\n            </div>\n\n            <div class=\"collapse navbar-collapse\" id=\"navie\">\n                <ul class=\"nav navbar-nav pull-right\">\n                    <li>\n                        <a href=\"#\"><i class=\"fa fa-female\" aria-hidden=\"true\"></i>\n                        My Interests\n                        </a>\n                    </li>\n                    <li>\n                        <a href=\"#\"><i class=\"fa fa-users\" aria-hidden=\"true\"></i>\n                        Interest Gallery\n                        </a>\n                    </li>\n                </ul>\n            </div>\n        </div>\n    </nav>\n</header>\n<div class=\"container-fluid\">\n    Let's Chill\n    <p>\n        <interest-page></interest-page>\n    </p>\n</div>"
 
 /***/ },
 /* 6 */
@@ -32834,6 +32834,8 @@
 	    var api = {
 	        interests: $resource('/api/interests/')
 	    }; // 'interests' derived from api/urls.py
+	
+	    return api;
 	}
 	
 	exports.default = interestAPIService;
@@ -32891,7 +32893,7 @@
 /* 13 */
 /***/ function(module, exports) {
 
-	module.exports = "<!-- interestPageCtrl -->\n<div class=\"row\">\n    <div class=\"col-md-4\">\n        <form>\n            <div class=\"form-group\">\n                <label for=\"this\">Search Films</label>\n                <input type=\"text\" \n                    class=\"form-control\" \n                    id=\"this\" \n                    ng-model=\"interestPageCtrl.search_capture\" \n                    placeholder=\"Type search here\">\n            </div>\n\n            <button type=\"submit\" \n                    class=\"btn btn-default\" \n                    ng-click=\"interestPageCtrl.searchFilms()\">\n                        Search\n            </button>\n        </form>\n    </div>\n</div>\n\n<div class=\"row\">\n    <div class=\"col-md-5\">\n        \n    </div>\n    <div class=\"col-md-2\"></div>\n    <div class=\"col-md-5\">\n        <!-- Others who are also 'interested' -->\n    </div>\n</div>"
+	module.exports = "<!-- interestPageCtrl -->\n<div class=\"row\">\n    <div class=\"col-md-4\">\n        <form>\n            <div class=\"form-group\">\n                <label for=\"this\">Search Films</label>\n                <input \n                    type=\"text\" \n                    class=\"form-control\" \n                    id=\"this\" \n                    ng-model=\"interestPageCtrl.search_capture\" \n                    placeholder=\"Type title here\">\n            </div>\n\n            <button \n                type=\"submit\" \n                class=\"btn btn-default\" \n                ng-click=\"interestPageCtrl.searchFilms()\">\n                    Search by Title\n            </button>\n        </form>\n    </div>\n\n    <div class=\"col-md-2\"></div>\n    <div class=\"col-md-6\">\n        <!-- search output -->\n        <form>\n            <div class=\"form-group\">\n                {{ interestPageCtrl.films.Title }}<br />\n                {{ interestPageCtrl.films.Genre }}<br />\n                {{ interestPageCtrl.films.Type }}<br />\n                <img src=\"{{ interestPageCtrl.films.Poster }}\" width=\"200px\">\n            </div>\n            <button \n                type=\"submit\" \n                class=\"btn btn-default\" \n                ng-click=\"interestPageCtrl.addInterest(interestPageCtrl.films)\"\n            >\n                Interested\n            </button>\n        <pre>{{ interestPageCtrl.films | json }}</pre>\n        </form>\n    </div>\n</div>\n\n<div class=\"row\">\n    <div class=\"col-md-5\">\n        \n    </div>\n    <div class=\"col-md-2\"></div>\n    <div class=\"col-md-5\">\n        <!-- Others who are also 'interested' -->\n    </div>\n</div>"
 
 /***/ },
 /* 14 */
@@ -32903,8 +32905,11 @@
 	    value: true
 	});
 	
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 	
-	function interestPageController(omdbAPI) {
+	//replace SNAKE CASE w/ CAMEL CASE
+	
+	function interestPageController(omdbAPI, interestAPIService) {
 	    var ctrl = this;
 	    ctrl.searchHistory = []; //an array of all data returned from omdbapi
 	    ctrl.films = null; //objects of data returned from omdbapi
@@ -32912,19 +32917,39 @@
 	    ctrl.title = null; // string 't='
 	    ctrl.search_capture = null; //what is typed by user
 	
+	    ctrl.interests = []; //list of saved interests
+	
 	    function searchFilms() {
 	        omdbAPI.get({
 	            t: ctrl.search_capture
 	        }).$promise.then(function (data) {
 	            ctrl.films = data;
 	            ctrl.searchHistory.push(data);
-	            console.log(data);
+	            //            console.log(data);
 	        });
-	
+	        return ctrl.films;
 	        //  ADD ERROR MSG if search returns 'false'
 	    } // END searchFilms
 	
+	    function addInterest(savedInterest) {
+	        ctrl.savedInterest = {
+	            "film": 1,
+	            "user": 1
+	        };
+	        //  THIS ISN'T PERSISTING DATA FROM OMDBAPI
+	        //  I THINK THERE IS A FOUL-UP W/MY MODELS - THE LOGIC BETWEEN THEM
+	        //  AND HOW I'M THINKING THE DJANGOREST & ANGULAR WORK TOGETHER
+	
+	        interestAPIService.interests.save(ctrl.savedInterest).$promise.then(function (data) {
+	            ctrl.interests = [data].concat(_toConsumableArray(ctrl.interests));
+	        });
+	        // '...'' is an ES6 'spread operator'; takes every item in spread array 
+	        //'...ctrl.interests' and pastes into parent array 'ctrl.interests'
+	    } // END addInterest
+	
+	    //  functions
 	    ctrl.searchFilms = searchFilms;
+	    ctrl.addInterest = addInterest;
 	};
 	
 	exports.default = interestPageController;
