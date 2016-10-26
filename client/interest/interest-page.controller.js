@@ -25,7 +25,7 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService) {
     function checkForDuplicates(filmRequest) {
         filmAPIService.films.get(filmRequest).$promise.then(
                 (data) => {
-                    if (data != undefined) { 
+                    if (data != null) { 
                         ctrl.isDuplicate = true;
                     }
                     return ctrl.isDuplicate;
@@ -45,7 +45,7 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService) {
 //  CHECKS FOR DUPLICATES in db
         checkForDuplicates(ctrl.savedInterest);
 
-        if (ctrl.isDuplicate) {
+        if (ctrl.isDuplicate == false) {
             filmAPIService.films.save(ctrl.savedInterest).$promise.then(
                 (returnData) => {
                     ctrl.interest = {
@@ -71,6 +71,7 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService) {
         } else {
             alert('Already Interested!');
         }
+        ctrl.isDuplicate = false;
     } // END addInterest
 
 //  functions

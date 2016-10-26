@@ -4,9 +4,9 @@ from django.contrib.auth.models import User
 
 #important User info: id, email, name, date
 class Film(models.Model):
-    title = models.CharField(max_length=30)
-    genre = models.CharField(max_length=30)
-    director = models.CharField(max_length=30, blank=True)
+    title = models.CharField(max_length=300)
+    genre = models.CharField(max_length=300)
+    director = models.CharField(max_length=300, blank=True)
 
     def __str__(self):
         return self.title
