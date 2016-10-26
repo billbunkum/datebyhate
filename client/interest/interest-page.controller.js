@@ -32,7 +32,17 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService) {
 
 //  HOW TO CHECK FOR DUPLICATES in db?
         filmAPIService.films.save(ctrl.savedInterest).$promise.then(
-            () => {alert('film saved');
+            (returnData) => {
+                ctrl.interest = {
+                    user: 1, //mock user
+                    film: returnData.id,
+                };
+                console.log(returnData);
+                interestAPIService.interests.save(ctrl.interest).$promise.then(
+                    () => { 
+                            alert('interest saved'); 
+                        }
+                    );
         });
 
         // interestAPIService.interests.save(ctrl.savedInterest)
