@@ -1,14 +1,13 @@
 //replace SNAKE CASE w/ CAMEL CASE
 
-function interestPageController(omdbAPI, interestAPIService) {
+function interestPageController(omdbAPI, interestAPIService, filmAPIService) {
     const ctrl = this;
-    ctrl.searchHistory = []; //an array of all data returned from omdbapi
+    ctrl.searchHistory = []; //a SESSION array of all data returned from omdbapi
     ctrl.films = null; //objects of data returned from omdbapi
     ctrl.search_type = "title"; // specifies the 't' param for omdbapi
     ctrl.title = null; // string 't='
     ctrl.search_capture = null; //what is typed by user
-
-    ctrl.interests = []; //list of saved interests
+    ctrl.interestsHistory = []; //SESSION list of saved interests
 
     function searchFilms() {
         omdbAPI.get({
@@ -22,22 +21,27 @@ function interestPageController(omdbAPI, interestAPIService) {
 //  ADD ERROR MSG if search returns 'false'
     } // END searchFilms
 
-    function addInterest(savedInterest) {
+    function addInterest(savedInterest) { //ctrl.films -> interestPageCtrl.films
+//  FIRST, saves film to db, THEN saves interest to db using film_id
         ctrl.savedInterest = {
-            "film": 1,
-            "user": 1,
+            user: 1, //mock user
+            title: savedInterest.Title,
+            genre: savedInterest.Genre,
+            director: savedInterest.Director,
         };
-//  THIS ISN'T PERSISTING DATA FROM OMDBAPI
-//  I THINK THERE IS A FOUL-UP W/MY MODELS - THE LOGIC BETWEEN THEM
-//  AND HOW I'M THINKING THE DJANGOREST & ANGULAR WORK TOGETHER
 
-        interestAPIService.interests.save(ctrl.savedInterest)
-            .$promise.then( (data) => {
-                ctrl.interests = [
-                    data,
-                    ...ctrl.interests,
-                ];
-            });
+//  HOW TO CHECK FOR DUPLICATES in db?
+        filmAPIService.films.save(ctrl.savedInterest).$promise.then(
+            () => {alert('film saved');
+        });
+
+        // interestAPIService.interests.save(ctrl.savedInterest)
+        //     .$promise.then( (data) => {
+        //         ctrl.interestsHistory = [
+        //             data,
+        //             ...ctrl.interestsHistory,
+        //         ];
+        //     });
 // '...'' is an ES6 'spread operator'; takes every item in spread array 
 //'...ctrl.interests' and pastes into parent array 'ctrl.interests'
     } // END addInterest
