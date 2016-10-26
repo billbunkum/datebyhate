@@ -8,6 +8,7 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService) {
     ctrl.title = null; // string 't='
     ctrl.search_capture = null; //what is typed by user
     ctrl.interestsHistory = []; //SESSION list of saved interests
+    ctrl.isDuplicate = false; //used to see if film is already in db
 
     function searchFilms() {
         omdbAPI.get({
@@ -15,11 +16,22 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService) {
         }).$promise.then( (data) => {
             ctrl.films = data;
             ctrl.searchHistory.push(data);
-//            console.log(data);
+            // console.log(data);
             });
-        return ctrl.films;
+//        return ctrl.films;
 //  ADD ERROR MSG if search returns 'false'
     } // END searchFilms
+
+    function checkForDuplicates(filmRequest) {
+        filmAPIService.films.get(filmRequest).$promise.then(
+                (data) => {
+                    if (data != undefined) { 
+                        ctrl.isDuplicate = true;
+                    }
+                    return ctrl.isDuplicate;
+                }
+            );
+    } // END checkForDuplicates
 
     function addInterest(savedInterest) { //ctrl.films -> interestPageCtrl.films
 //  FIRST, saves film to db, THEN saves interest to db using film_id
@@ -30,35 +42,41 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService) {
             director: savedInterest.Director,
         };
 
-//  HOW TO CHECK FOR DUPLICATES in db?
-        filmAPIService.films.save(ctrl.savedInterest).$promise.then(
-            (returnData) => {
-                ctrl.interest = {
-                    user: 1, //mock user
-                    film: returnData.id,
-                };
-                console.log(returnData);
-                interestAPIService.interests.save(ctrl.interest).$promise.then(
-                    () => { 
-                            alert('interest saved'); 
-                        }
-                    );
-        });
+//  CHECKS FOR DUPLICATES in db
+        checkForDuplicates(ctrl.savedInterest);
 
-        // interestAPIService.interests.save(ctrl.savedInterest)
-        //     .$promise.then( (data) => {
-        //         ctrl.interestsHistory = [
-        //             data,
-        //             ...ctrl.interestsHistory,
-        //         ];
-        //     });
-// '...'' is an ES6 'spread operator'; takes every item in spread array 
-//'...ctrl.interests' and pastes into parent array 'ctrl.interests'
+        if (ctrl.isDuplicate) {
+            filmAPIService.films.save(ctrl.savedInterest).$promise.then(
+                (returnData) => {
+                    ctrl.interest = {
+                        user: 1, //mock user
+                        film: returnData.id,
+                    };
+
+    //                console.log(returnData);
+    //  could REFACTOR into 'addFilm()'' and call 'addInterests()'' within
+                    interestAPIService.interests.save(ctrl.interest).$promise.then(
+                        (data) => {
+                                console.log(data);
+                                ctrl.interestsHistory = [
+                                    data,
+                                    ...ctrl.interestsHistory,
+    // '...'' is an ES6 'spread operator'; takes every item in spread array 
+    //'...ctrl.interests' and pastes into parent array 'ctrl.interests'
+                                ];
+                        console.log(ctrl.interestsHistory);
+                            }
+                        );
+            });
+        } else {
+            alert('Already Interested!');
+        }
     } // END addInterest
 
 //  functions
     ctrl.searchFilms = searchFilms;
     ctrl.addInterest = addInterest;
+    ctrl.checkForDuplicates = checkForDuplicates;
 };
 
 export default interestPageController;

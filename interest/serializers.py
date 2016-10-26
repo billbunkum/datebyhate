@@ -11,11 +11,11 @@ class UserSerializer(serializers.ModelSerializer):
 
 class FilmSerializer(serializers.ModelSerializer):
     class Meta:
+#   must whitelist 'id' in fields so 'interests' can be persisted by film id
         model = Film
         fields = ('id', 'title', 'genre', 'director', )
 
 class InterestSerializer(serializers.ModelSerializer):
-    # user = UserSerializer()
     class Meta:
         model = Interest
         fields = ( 'id', 'date', 'user', 'film', )

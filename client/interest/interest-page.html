@@ -26,9 +26,10 @@
         <!-- search output -->
         <form>
             <div class="form-group">
-                {{ interestPageCtrl.films.Title }}<br />
+                <strong>{{ interestPageCtrl.films.Title }}</strong><br />
                 {{ interestPageCtrl.films.Genre }}<br />
-                {{ interestPageCtrl.films.Type }}<br />
+                Type: {{ interestPageCtrl.films.Type }}<br />
+                {{ interestPageCtrl.films.Year }}<br />
                 <img src="{{ interestPageCtrl.films.Poster }}" width="200px">
             </div>
             <button 
@@ -38,7 +39,7 @@
             >
                 Interested
             </button>
-        <pre>{{ interestPageCtrl.films | json }}</pre>
+        <!-- <pre>{{ interestPageCtrl.films | json }}</pre> -->
         </form>
     </div>
 </div>
