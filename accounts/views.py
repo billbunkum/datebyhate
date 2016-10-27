@@ -9,7 +9,7 @@ def register(request):
         if form.is_valid():
             new_user = form.save(commit=False)
             #need to clean data before persisting to db
-            new_user.set_password(form.cleaned_data["passphrase"])
+            new_user.set_password(form.cleaned_data["password"])
             new_user.save()
 
             messages.success(request, 'Congrats! You now exist.')

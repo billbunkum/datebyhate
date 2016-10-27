@@ -8,18 +8,18 @@ class LoginForm(BootstrapFormMixin, AuthenticationForm):
     pass
 
 class UserRegistrationForm(BootstrapFormMixin, forms.ModelForm):
-    passphrase = forms.CharField(label='Passphrase', widget=forms.PasswordInput)
-    passphrase2 = forms.CharField(label='Repeat passphrase', widget=forms.PasswordInput)
+    password = forms.CharField(label='Passphrase', widget=forms.PasswordInput)
+    password2 = forms.CharField(label='Repeat passphrase', widget=forms.PasswordInput)
 
     class Meta:
         model = User
         fields = ('username', 'email',)
 
-    def clean_password(self):
+    def clean_password2(self):
 #WHERE does 'cd' come from/go to?
         cd = self.cleaned_data
 
-        if cd['passphrase'] != cd['passphrase2']:
+        if cd['password'] != cd['password2']:
             raise forms.ValidationError('Passphrases do not match!')
 
-        return cd['passphrase2']
+        return cd['password2']
