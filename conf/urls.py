@@ -18,6 +18,6 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^api/', include('api.urls', namespace='api')),
 #   there is no 'namespace' for api in sups board
-    url(r'^acccounts/', include('accounts.urls', namespace='accounts')),
+    url(r'^accounts/', include('accounts.urls', namespace='accounts')),
     url(r'^', include('core.urls', namespace='core')),
 ]

@@ -1,0 +1,40 @@
+{% extends "core/base.html" %}
+{% block content %}
+
+<h1>
+    Register
+</h1>
+    <small>Fill out each field in the form below.</small>
+<hr>
+{% csrf_token %}
+{% for field in form %}
+    {% include "core/_form_input.html" %}
+{% endfor %}
+
+<input 
+    type="hidden"
+    name="next"
+    value="{{ next }}"
+>
+<button 
+    type="submit"
+    class="btn btn-default"
+>
+    Register
+</button>
+
+{% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li
+                {% if message.tags %}
+                class="{{message}}"
+                {% endif %}
+            >
+            </li>
+        {% endif %}
+    </ul>
+
+{% endif %}
+
+{% endblock content %}
