@@ -16,7 +16,16 @@ class FilmSerializer(serializers.ModelSerializer):
         fields = ('id', 'title', 'genre', 'director', )
 
 class InterestSerializer(serializers.ModelSerializer):
+    #custom method field
+    current_user = serializers.SerializerMethodField('_user')
+
+    #using custom field '_user' to create a method
+    def _user(self, obj):
+        user = self.context['request'].user
+        return user
+
+    #adding 'current_user' w/ request.user as 'user' to fields
     class Meta:
         model = Interest
-        fields = ( 'id', 'date', 'user', 'film', )
-        read_only = ( 'id', )
+        fields = ( 'id', 'date', 'current_user', 'film', )
+        read_only = ( 'id', 'current_user', )

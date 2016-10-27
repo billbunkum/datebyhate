@@ -36,7 +36,7 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService) {
     function addInterest(savedInterest) { //ctrl.films -> interestPageCtrl.films
 //  FIRST, saves film to db, THEN saves interest to db using film_id
         ctrl.savedInterest = {
-            user: 1, //mock user
+            // user: 1, //mock user
             title: savedInterest.Title,
             genre: savedInterest.Genre,
             director: savedInterest.Director,
@@ -49,7 +49,7 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService) {
             filmAPIService.films.save(ctrl.savedInterest).$promise.then(
                 (returnData) => {
                     ctrl.interest = {
-                        user: 1, //mock user
+                        // user: 1, //mock user
                         film: returnData.id,
                     };
 

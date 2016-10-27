@@ -29,8 +29,14 @@
                 <strong>{{ interestPageCtrl.films.Title }}</strong><br />
                 {{ interestPageCtrl.films.Genre }}<br />
                 Type: {{ interestPageCtrl.films.Type }}<br />
-                {{ interestPageCtrl.films.Year }}<br />
-                <img src="{{ interestPageCtrl.films.Poster }}" width="200px">
+                Year: {{ interestPageCtrl.films.Year }}<br />
+                
+                <!-- 'ng-if' may be deprecated -->
+                <img 
+                    ng-if="interestPageCtrl.films.Poster"
+                    src="{{ interestPageCtrl.films.Poster }}" 
+                    width="200px" 
+                />
             </div>
             <button 
                 type="submit" 
