@@ -7,7 +7,8 @@ BASE_DIR = Path(__file__).ancestor(3)
 TEMPLATE_DIR = BASE_DIR.child("templates")
 STATIC_FILE_DIR = BASE_DIR.child("static")
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
+#overrides automatic direct to /accounts/profile
+LOGIN_REDIRECT_URL = '/'
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
 

@@ -7,7 +7,7 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('username', 'email', 'last_login', 'date_joined', 'id', )
-        read_only = ('last_login', 'date_joined', 'id', )
+        read_only_fields = ('last_login', 'date_joined', 'id', )
 
 class FilmSerializer(serializers.ModelSerializer):
 #REDUNDANT
@@ -45,4 +45,4 @@ class InterestSerializer(serializers.ModelSerializer):
     class Meta:
         model = Interest
         fields = ( 'id', 'date', 'current_user', 'current_user_id', 'film', )
-        read_only = ( 'id', 'current_user_id', )
+        read_only_fields = ( 'id', 'current_user_id', )

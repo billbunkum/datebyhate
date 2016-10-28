@@ -46,6 +46,20 @@
                                 Halls of Angst
                             </a>
                         </li>
+
+                        {% if user.is_authenticated %}
+                        <li>
+                            <a href="{% url 'accounts:logout' %}">
+                            Logout
+                            </a>
+                        </li>
+                        {% else %}
+                        <li>
+                            <a href="{% url 'accounts:login' %}">
+                            Sign in
+                            </a>
+                        </li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>
@@ -55,11 +69,9 @@
 
 {% block content %}
 <h2>You are: {{request.user}}!</h2>
-    {% if request.user %}
+
         <div class="app-container" ng-app="root" ng-cloak>
             <app />
         </div>
-    {% else %}
-        {% url 'accounts:register' %}
-    {% endif %}
+
 {% endblock content %}
