@@ -10,10 +10,20 @@ class UserSerializer(serializers.ModelSerializer):
         read_only = ('last_login', 'date_joined', 'id', )
 
 class FilmSerializer(serializers.ModelSerializer):
+#REDUNDANT
+    #custom method field
+    # current_user = serializers.SerializerMethodField('_user')
+
+    # #using custom field '_user' to create a method
+    # def _user(self, obj):
+    #     user = self.context['request'].user
+    #     return user
+
     class Meta:
 #   must whitelist 'id' in fields so 'interests' can be persisted by film id
         model = Film
         fields = ('id', 'title', 'genre', 'director', )
+#        read_only = ('current_user', )
 
 class InterestSerializer(serializers.ModelSerializer):
     #custom method field

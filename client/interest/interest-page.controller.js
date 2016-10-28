@@ -65,6 +65,7 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService) {
     //'...ctrl.interests' and pastes into parent array 'ctrl.interests'
                                 ];
                         console.log(ctrl.interestsHistory);
+                        alert('Interest added!');
                             }
                         );
             });
