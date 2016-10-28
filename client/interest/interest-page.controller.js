@@ -75,10 +75,10 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
         ctrl.isDuplicate = false;
     } // END addInterest
 
-// pageLoad
+// on pageLoad gets current user
     function getMe() {
         meService.me().then( (me) => {
-            console.log(me);
+            // console.log(me);
             ctrl.user = me;
         })
     }
@@ -88,6 +88,6 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
     ctrl.searchFilms = searchFilms;
     ctrl.addInterest = addInterest;
     ctrl.checkForDuplicates = checkForDuplicates;
-};
+}; // END interestPageController
 
 export default interestPageController;

@@ -6,6 +6,7 @@ import filmAPIService from '../film/film-api.service';
 import omdbAPI from './interest-omdbAPI';
 
 import interestPageComponent from './interest-page.component';
+import hatePageComponent from './hate-page.component';
 
 const interestModule = angular.module('interestMod', [
         'ngResource'
@@ -20,7 +21,8 @@ const interestModule = angular.module('interestMod', [
 //  does it matter if '.factory' is concatinated before '.config'??
     .factory('omdbAPI', omdbAPI)
     .factory('filmAPIService', filmAPIService)
-    .component('interestPage', interestPageComponent);
+    .component('interestPage', interestPageComponent)
+    .component('hatePage', hatePageComponent);
 //  still need to register COMPONENTS
 
 export default interestModule;
