@@ -1,9 +1,10 @@
 <!-- interestPageCtrl -->
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-1"></div>
+    <div class="col-md-3">
         <form>
             <div class="form-group">
-                <label for="this">Search Films</label>
+                <label for="this">Search Films You Hate</label>
                 <input 
                     type="text" 
                     class="form-control" 
@@ -20,17 +21,13 @@
             </button>
         </form>
     </div>
-
-    <div class="col-md-2"></div>
-    <div class="col-md-6">
+<br />
+    <div class="col-md-1"></div>
+    <div class="col-md-3">
         <!-- search output -->
-        <form>
+        <form ng-show="interestPageCtrl.films">
+            <!-- <h3>What do you think about?</h3> -->
             <div class="form-group">
-                <strong>{{ interestPageCtrl.films.Title }}</strong><br />
-                {{ interestPageCtrl.films.Genre }}<br />
-                Type: {{ interestPageCtrl.films.Type }}<br />
-                Year: {{ interestPageCtrl.films.Year }}<br />
-                
                 <!-- 'ng-if' may be deprecated -->
                 <img 
                     ng-show="interestPageCtrl.films.Poster"
@@ -38,16 +35,44 @@
                     width="200px" 
                 />
             </div>
+        </form>
+    </div>
+    <div class="col-md-2">
+        <form ng-show="interestPageCtrl.films">
+            <div class="form-group">
+                <label for="title">Title</label>
+                <panel id="title">
+                    {{ interestPageCtrl.films.Title }}
+                </panel>
+                <br />
+                <label for="genre">Genre</label>
+                <panel id="genre">
+                    {{ interestPageCtrl.films.Genre }}
+                </panel>
+                <br />
+                <label for="type">Type</label>
+                <panel id="type">
+                    {{ interestPageCtrl.films.Type }}
+                </panel>
+                <br />
+                <label for="year">Year</label>
+                    <panel id="year">
+                        {{ interestPageCtrl.films.Year }}
+                    </panel>
+                <br />
+            </div>
             <button 
                 type="submit" 
                 class="btn btn-default" 
                 ng-click="interestPageCtrl.addInterest(interestPageCtrl.films)"
             >
-                Interested
+                Hate it
             </button>
         <!-- <pre>{{ interestPageCtrl.films | json }}</pre> -->
         </form>
     </div>
+
+    <div class="col-md-2"></div>
 </div>
 
 <div class="row">
