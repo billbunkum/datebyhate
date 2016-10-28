@@ -1,6 +1,6 @@
 //replace SNAKE CASE w/ CAMEL CASE
 
-function interestPageController(omdbAPI, interestAPIService, filmAPIService) {
+function interestPageController(omdbAPI, interestAPIService, filmAPIService, meService) {
     const ctrl = this;
     ctrl.searchHistory = []; //a SESSION array of all data returned from omdbapi
     ctrl.films = null; //objects of data returned from omdbapi
@@ -49,7 +49,7 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService) {
             filmAPIService.films.save(ctrl.savedInterest).$promise.then(
                 (returnData) => {
                     ctrl.interest = {
-                        // user: 1, //mock user
+                        user: ctrl.user.id,
                         film: returnData.id,
                     };
 
@@ -65,15 +65,24 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService) {
     //'...ctrl.interests' and pastes into parent array 'ctrl.interests'
                                 ];
                         console.log(ctrl.interestsHistory);
-                        alert('Interest added!');
+                        alert('Hated!');
                             }
                         );
             });
         } else {
-            alert('Already Interested!');
+            alert('Already Hated!');
         }
         ctrl.isDuplicate = false;
     } // END addInterest
+
+// pageLoad
+    function getMe() {
+        meService.me().then( (me) => {
+            console.log(me);
+            ctrl.user = me;
+        })
+    }
+    getMe();
 
 //  functions
     ctrl.searchFilms = searchFilms;

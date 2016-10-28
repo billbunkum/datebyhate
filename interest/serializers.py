@@ -28,21 +28,17 @@ class FilmSerializer(serializers.ModelSerializer):
 class InterestSerializer(serializers.ModelSerializer):
     #custom method field; serializerMethodFields are read_only and get their values by calling a method, in this case,  '_user'
     #'()' defaults to get_<field_name>, i.e. get_current_user, which is the def below
-    current_user = serializers.SerializerMethodField()
-    current_user_id = serializers.SerializerMethodField()
+    #serializers.SerializerMethodField()
+    # current_user_id = serializers.SerializerMethodField()
 
-    #using custom field '_user' to create a method
-    def get_current_user(self, obj):
-        user = self.context['request'].user
-        return user
 
-    def get_current_user_id(self, obj):
-#        user_id = self.context['request'].user_id
-#        user = self.context['request'].user
-        return User.objects.get(pk=obj.id)
+#     def get_current_user_id(self, obj):
+# #        user_id = self.context['request'].user_id
+# #        user = self.context['request'].user
+#         return User.objects.get(pk=obj.id)
 
     #adding 'current_user' w/ request.user as 'user' to fields
     class Meta:
         model = Interest
-        fields = ( 'id', 'date', 'current_user', 'current_user_id', 'film', )
-        read_only_fields = ( 'id', 'current_user_id', )
+        fields = ( 'id', 'date', 'user', 'film', )
+#        read_only_fields = ( 'id', 'current_user_id', )

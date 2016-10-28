@@ -1,4 +1,5 @@
 from rest_framework import viewsets
+from rest_framework.generics import RetrieveAPIView
 
 from django.contrib.auth.models import User
 
@@ -17,3 +18,10 @@ class UserViewSet(viewsets.ModelViewSet):
 class FilmViewSet(viewsets.ModelViewSet):
     queryset = Film.objects.all()
     serializer_class = FilmSerializer
+
+class CurrentUserDetails(RetrieveAPIView):
+    model = User
+    serializer_class = UserSerializer
+
+    def get_object(self):
+        return self.request.user
