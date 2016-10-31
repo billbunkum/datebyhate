@@ -40,5 +40,5 @@ class InterestSerializer(serializers.ModelSerializer):
     #adding 'current_user' w/ request.user as 'user' to fields
     class Meta:
         model = Interest
-        fields = ( 'id', 'date', 'user', 'film', )
+        fields = ( 'id', 'date', 'user', 'film', 'hasHate' )
 #        read_only_fields = ( 'id', 'current_user_id', )
