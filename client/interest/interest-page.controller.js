@@ -82,7 +82,7 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
                 ctrl.hateBall = data;
                 // console.log(data.results[0].user);
                 // console.log(ctrl.hateBall);
-                for(var x = 0; x < 12; x++) {
+                for(var x = 0; x < ctrl.hateBall.results.length; x++) {
                     // console.log(data.results[0].user);
                     // console.log(ctrl.hateBall);
                     // console.log(ctrl.hateBall.results[x].user);
