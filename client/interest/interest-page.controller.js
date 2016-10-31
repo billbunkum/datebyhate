@@ -9,7 +9,8 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
     ctrl.search_capture = null; //what is typed by user
     ctrl.interestsHistory = []; //SESSION list of saved interests
     ctrl.isDuplicate = false; //used to see if film is already in db
-    ctrl.allHates = []; //used w/in 'getAllHate()' to get all a user's previous hates for 'My Angst'
+    ctrl.allMyHates = []; //used w/in 'getAllHate()' to get all a user's previous hates for 'My Angst'
+    // ctrl.hateBall = [];
 
     function searchFilms() {
         omdbAPI.get({
@@ -77,6 +78,8 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
     } // END addInterest
 
     function getAllHate() {
+        // ctrl.allMyHates = [];
+
         interestAPIService.interests.get().$promise.then(
             (data) => {
                 ctrl.hateBall = data;
@@ -87,12 +90,15 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
                     // console.log(ctrl.hateBall);
                     // console.log(ctrl.hateBall.results[x].user);
                     if (ctrl.hateBall.results[x].user == ctrl.user.id) {
-                        ctrl.allHates.push(ctrl.hateBall.results[x]);
+                        ctrl.allMyHates.push(ctrl.hateBall.results[x]);
                     }
+        // console.log(ctrl.allMyHates);
                 }
-               console.log(ctrl.allHates);
             });
+        console.log(ctrl.allMyHates);
+        return ctrl.allMyHates;
     }
+
 
 // on pageLoad gets current user
     function getMe() {
@@ -102,6 +108,7 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
         })
     }
     getMe();
+    getAllHate();
 
 //  functions
     ctrl.searchFilms = searchFilms;

@@ -1,12 +1,16 @@
 <!-- interestPageCtrl -->
 <div class="row">
     <div class="col-md-6">
-        <hate-page></hate-page>
-    </div>
-    <div class="col-md-6">
-        <button ng-click="interestPageCtrl.getAllHate()">Test</button>
+        <hate-page 
+            hate="hate" 
+            myangst="interestPageCtrl.getAllHate()"
+            ng-repeat="hate in interestPageCtrl.allMyHates" 
+        >
+        </hate-page>
     </div>
 </div>
+
+<button ng-click="interestPageCtrl.getAllHate()">TEST</button>
 
 <div class="row">
     <div class="col-md-1"></div>
