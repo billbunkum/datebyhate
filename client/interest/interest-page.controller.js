@@ -9,6 +9,7 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
     ctrl.search_capture = null; //what is typed by user
     ctrl.interestsHistory = []; //SESSION list of saved interests
     ctrl.isDuplicate = false; //used to see if film is already in db
+    ctrl.allHates = []; //used w/in 'getAllHate()' to get all a user's previous hates for 'My Angst'
 
     function searchFilms() {
         omdbAPI.get({
@@ -25,7 +26,7 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
     function checkForDuplicates(filmRequest) {
         filmAPIService.films.get(filmRequest).$promise.then(
                 (data) => {
-                    if (data != null) { 
+                    if (data.user != null) { 
                         ctrl.isDuplicate = true;
                     }
                     return ctrl.isDuplicate;
@@ -33,10 +34,10 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
             );
     } // END checkForDuplicates
 
-    function addInterest(savedInterest) { //ctrl.films -> interestPageCtrl.films
+    function addInterest(savedInterest) { 
+//ACTIVATES w/ HATE IT button; ctrl.films -> interestPageCtrl.films
 //  FIRST, saves film to db, THEN saves interest to db using film_id
         ctrl.savedInterest = {
-            // user: 1, //mock user
             title: savedInterest.Title,
             genre: savedInterest.Genre,
             director: savedInterest.Director,
@@ -57,14 +58,14 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
     //  could REFACTOR into 'addFilm()'' and call 'addInterests()'' within
                     interestAPIService.interests.save(ctrl.interest).$promise.then(
                         (data) => {
-                                console.log(data);
+                                // console.log(data);
                                 ctrl.interestsHistory = [
                                     data,
                                     ...ctrl.interestsHistory,
     // '...'' is an ES6 'spread operator'; takes every item in spread array 
     //'...ctrl.interests' and pastes into parent array 'ctrl.interests'
                                 ];
-                        console.log(ctrl.interestsHistory);
+                        // console.log(ctrl.interestsHistory);
                         alert('Hated!');
                             }
                         );
@@ -74,6 +75,24 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
         }
         ctrl.isDuplicate = false;
     } // END addInterest
+
+    function getAllHate() {
+        interestAPIService.interests.get().$promise.then(
+            (data) => {
+                ctrl.hateBall = data;
+                // console.log(data.results[0].user);
+                // console.log(ctrl.hateBall);
+                for(var x = 0; x < 12; x++) {
+                    // console.log(data.results[0].user);
+                    // console.log(ctrl.hateBall);
+                    // console.log(ctrl.hateBall.results[x].user);
+                    if (ctrl.hateBall.results[x].user == ctrl.user.id) {
+                        ctrl.allHates.push(ctrl.hateBall.results[x]);
+                    }
+                }
+               console.log(ctrl.allHates);
+            });
+    }
 
 // on pageLoad gets current user
     function getMe() {
@@ -88,6 +107,7 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
     ctrl.searchFilms = searchFilms;
     ctrl.addInterest = addInterest;
     ctrl.checkForDuplicates = checkForDuplicates;
+    ctrl.getAllHate = getAllHate;
 }; // END interestPageController
 
 export default interestPageController;

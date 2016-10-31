@@ -46,9 +46,6 @@
 
                 <div class="collapse navbar-collapse" id="navie">
                     <ul class="nav navbar-nav pull-right">
-                        <li>
-                            <a href="#">Herro {{request.user}}</a>
-                        </li>
 <!--                         <li>
                             <a 
                                 href="#"
@@ -71,14 +68,22 @@
  -->
                         {% if user.is_authenticated %}
                         <li>
+                            <a href="#">Herro {{request.user}}</a>
+                        </li>
+                        <li>
                             <a href="{% url 'accounts:logout' %}">
-                            Logout
+                                Logout
                             </a>
                         </li>
                         {% else %}
                         <li>
                             <a href="{% url 'accounts:login' %}">
-                            Sign in
+                                Sign in
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{% url 'accounts:register' %}">
+                                Register
                             </a>
                         </li>
                         {% endif %}

@@ -15,17 +15,20 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Film',
             fields=[
-                ('id', models.AutoField(primary_key=True, verbose_name='ID', auto_created=True, serialize=False)),
-                ('title_id', models.CharField(max_length=20)),
+                ('id', models.AutoField(auto_created=True, verbose_name='ID', serialize=False, primary_key=True)),
+                ('title', models.CharField(max_length=300)),
+                ('genre', models.CharField(max_length=300)),
+                ('director', models.CharField(blank=True, max_length=300)),
             ],
         ),
         migrations.CreateModel(
             name='Interest',
             fields=[
-                ('id', models.AutoField(primary_key=True, verbose_name='ID', auto_created=True, serialize=False)),
+                ('id', models.AutoField(auto_created=True, verbose_name='ID', serialize=False, primary_key=True)),
                 ('date', models.DateTimeField(auto_now_add=True)),
+                ('has_hate', models.BooleanField(default=False)),
                 ('film', models.ForeignKey(to='interest.Film')),
-                ('user', models.ForeignKey(blank=True, to=settings.AUTH_USER_MODEL, null=True)),
+                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
             ],
         ),
     ]
