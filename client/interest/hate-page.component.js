@@ -5,8 +5,7 @@ import template from './hate-page.html';
 const hatePageComponent = {
     template: template,
     bindings: {
-        hate: '<',
-        myangst: '&', //don't know if this needs camelCase or kabob-case
+        hates: '<',
     },
     controller: hatePageController,
     controllerAs: 'hatePageCtrl',

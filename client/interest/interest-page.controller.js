@@ -45,9 +45,9 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
         };
 
 //  CHECKS FOR DUPLICATES in db
-        checkForDuplicates(ctrl.savedInterest);
+        // checkForDuplicates(ctrl.savedInterest);
 
-        if (ctrl.isDuplicate == false) {
+        // if (ctrl.isDuplicate == false) {
             filmAPIService.films.save(ctrl.savedInterest).$promise.then(
                 (returnData) => {
                     ctrl.interest = {
@@ -68,17 +68,17 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
                                 ];
                         // console.log(ctrl.interestsHistory);
                         alert('Hated!');
-                            }
-                        );
+                        }
+                    );
             });
-        } else {
-            alert('Already Hated!');
-        }
+        // } else {
+        //     alert('Already Hated!');
+        // }
         ctrl.isDuplicate = false;
     } // END addInterest
 
     function getAllHate() {
-        // ctrl.allMyHates = [];
+        ctrl.allMyHates = [];
 
         interestAPIService.interests.get().$promise.then(
             (data) => {
@@ -94,9 +94,8 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
                     }
         // console.log(ctrl.allMyHates);
                 }
-            });
         console.log(ctrl.allMyHates);
-        return ctrl.allMyHates;
+            });
     }
 
 
