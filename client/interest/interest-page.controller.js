@@ -9,7 +9,6 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
     ctrl.search_capture = null; //what is typed by user
     ctrl.interestsHistory = []; //SESSION list of saved interests
     ctrl.isDuplicate = false; //used to see if film is already in db
-    ctrl.allHate = []; // all every hates; used within getAllHate
     ctrl.allMyHates = []; //all a user's 'hates'; used within getMyAngst
 
     function searchFilms() {
@@ -42,6 +41,7 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
             title: savedInterest.Title,
             genre: savedInterest.Genre,
             director: savedInterest.Director,
+            imdbID: savedInterest.imdbID,
         };
 
 //  CHECKS FOR DUPLICATES in db
@@ -53,6 +53,7 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
                     ctrl.interest = {
                         user: ctrl.user.id,
                         film: returnData.id,
+                        imdbID: returnData.imdbID,
                     };
 
     //                console.log(returnData);
@@ -100,6 +101,8 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
 
 // simplifying 'getAllHate'; gathers ALL interests
     function getAllHate() {
+        ctrl.allHate = []; // all every hates; used within getAllHate
+
         interestAPIService.interests.get().$promise.then(
             (data) => {
                 ctrl.hateBall = data;
@@ -112,6 +115,7 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
         );
     } // END getAllHate
 
+//  filters 'ctrl.allHate' into 'ctrl.allMyHates'
     function getMyAngst() {
         for (let x = 0; x < ctrl.allHate.length; x++) {
             if (ctrl.allHate[x].user === ctrl.user.id) {
@@ -120,6 +124,31 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
         }
         // console.log(ctrl.allMyHates);
     } // END getMyAngst
+
+//  compares 'ctrl.allMyHates' imdbID s w/ other imdbID s w/in 'ctrl.allHate'
+//  stores results in 'ctrl.othersWithMe' as a 'hateBuddy' object
+    function compareAngst() {
+        ctrl.othersWithMe = [];
+        for (let x = 0; x < ctrl.allHate.length; x++) {
+            console.log(ctrl.allHate[x].imdbID);
+            if (ctrl.allHate[x].imdbID == ctrl.allMyHates[x].imdbID) {
+                match = { 
+                    hateBuddy : [ 
+                        ctrl.allHate[x].user, 
+                        ctrl.allHate[x].imdbID, 
+                        ctrl.allHate[x].film 
+                    ] 
+                };
+                ctrl.othersWithMe.push(match);
+            }
+            match = {};
+        }
+        // console.log(ctrl.othersWithMe);
+    } // END compareAngst
+
+    function persistOthersWithMe() {
+
+    } // END persistOthersWithMe
 
 // on pageLoad gets current user
     function getMe() {
@@ -130,6 +159,7 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
     }
     getMe();
     getAllHate();//calls getMyAngst() w/in 'then clause'
+    compareAngst();
 
 //  functions
     ctrl.searchFilms = searchFilms;
@@ -137,6 +167,8 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
     ctrl.checkForDuplicates = checkForDuplicates;
     ctrl.getAllHate = getAllHate; //gathers all 'interests/hates' into 'ctrl.hateBall'
     ctrl.getMyAngst = getMyAngst; //pulls 'my angst' from 'ctrl.hateBall'
+    ctrl.compareAngst = compareAngst; // uses 'ctrl.allMyHates' & 'ctrl.allHate' to populate 'ctrl.othersWithMe'
+    ctrl.persistOthersWithMe = persistOthersWithMe; // persists data comparison got from 'compareAngst'
 }; // END interestPageController
 
 export default interestPageController;
