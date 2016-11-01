@@ -9,8 +9,8 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
     ctrl.search_capture = null; //what is typed by user
     ctrl.interestsHistory = []; //SESSION list of saved interests
     ctrl.isDuplicate = false; //used to see if film is already in db
-    ctrl.allMyHates = []; //used w/in 'getAllHate()' to get all a user's previous hates for 'My Angst'
-    // ctrl.hateBall = [];
+    ctrl.allHate = []; // all every hates; used within getAllHate
+    ctrl.allMyHates = []; //all a user's 'hates'; used within getMyAngst
 
     function searchFilms() {
         omdbAPI.get({
@@ -77,27 +77,49 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
         ctrl.isDuplicate = false;
     } // END addInterest
 
-    function getAllHate() {
-        ctrl.allMyHates = [];
+    // function getAllHate() {
+    //     ctrl.allMyHates = [];
 
+    //     interestAPIService.interests.get().$promise.then(
+    //         (data) => {
+    //             ctrl.hateBall = data;
+    //             // console.log(data.results[0].user);
+    //             // console.log(ctrl.hateBall);
+    //             for(var x = 0; x < ctrl.hateBall.results.length; x++) {
+    //                 // console.log(data.results[0].user);
+    //                 // console.log(ctrl.hateBall);
+    //                 // console.log(ctrl.hateBall.results[x].user);
+    //                 if (ctrl.hateBall.results[x].user == ctrl.user.id) {
+    //                     ctrl.allMyHates.push(ctrl.hateBall.results[x]);
+    //                 }
+    //     // console.log(ctrl.allMyHates);
+    //             }
+    //     console.log(ctrl.allMyHates);
+    //         });
+    // } // END getAllHate
+
+// simplifying 'getAllHate'; gathers ALL interests
+    function getAllHate() {
         interestAPIService.interests.get().$promise.then(
             (data) => {
                 ctrl.hateBall = data;
-                // console.log(data.results[0].user);
-                // console.log(ctrl.hateBall);
-                for(var x = 0; x < ctrl.hateBall.results.length; x++) {
-                    // console.log(data.results[0].user);
-                    // console.log(ctrl.hateBall);
-                    // console.log(ctrl.hateBall.results[x].user);
-                    if (ctrl.hateBall.results[x].user == ctrl.user.id) {
-                        ctrl.allMyHates.push(ctrl.hateBall.results[x]);
-                    }
-        // console.log(ctrl.allMyHates);
+                for (let x = 0; x < ctrl.hateBall.results.length; x++) {
+                    ctrl.allHate.push(ctrl.hateBall.results[x]);
                 }
-        console.log(ctrl.allMyHates);
-            });
-    }
+            // console.log(ctrl.allHate);
+                getMyAngst();
+            }
+        );
+    } // END getAllHate
 
+    function getMyAngst() {
+        for (let x = 0; x < ctrl.allHate.length; x++) {
+            if (ctrl.allHate[x].user === ctrl.user.id) {
+                ctrl.allMyHates.push(ctrl.allHate[x]);
+            }
+        }
+        // console.log(ctrl.allMyHates);
+    } // END getMyAngst
 
 // on pageLoad gets current user
     function getMe() {
@@ -107,13 +129,14 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
         })
     }
     getMe();
-    getAllHate();
+    getAllHate();//calls getMyAngst() w/in 'then clause'
 
 //  functions
     ctrl.searchFilms = searchFilms;
     ctrl.addInterest = addInterest;
     ctrl.checkForDuplicates = checkForDuplicates;
-    ctrl.getAllHate = getAllHate;
+    ctrl.getAllHate = getAllHate; //gathers all 'interests/hates' into 'ctrl.hateBall'
+    ctrl.getMyAngst = getMyAngst; //pulls 'my angst' from 'ctrl.hateBall'
 }; // END interestPageController
 
 export default interestPageController;
