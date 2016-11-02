@@ -107,31 +107,28 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
 
         for (let x = 0; x < ctrl.allMyHates.length; x++) {
             for (let i = 0; i < ctrl.allHate.length; i++) {
-                if (ctrl.allHate[i].imdbID === ctrl.allMyHates[x].imdbID) {
+                if (ctrl.allHate[i].imdbID === ctrl.allMyHates[x].imdbID && ctrl.allHate[i].user != ctrl.user.id) {
                     match = { 
                         hateBuddy : [ 
-                            ctrl.allHate[x].user, 
-                            ctrl.allHate[x].imdbID, 
-                            ctrl.allHate[x].film 
+                            ctrl.allHate[i].user, 
+                            ctrl.allHate[i].imdbID, 
+                            // ctrl.allHate[i].film 
                         ] 
                     };
                     ctrl.othersWithMe.push(match);
                 }
-                match = {};
             }
         }
-        if (ctrl.othersWithMe == undefined) {
-            alert('No hate matches\; keep hating to date!');
-        }
-
-        clearData();
         console.log(ctrl.othersWithMe);
+        clearData();
     } // END compareAngst
 
     function clearData () {
         ctrl.allHate = [];
         ctrl.allMyHates = [];
     }
+
+
 
     function persistOthersWithMe() {
 
@@ -148,7 +145,7 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
 // PAGE LOAD functions
     getMe();
     getAllHate();//calls getMyAngst() w/in 'then clause'
-    $interval(getAllHate, 5000);
+    // $interval(getAllHate, 5000);
 
 //  functions
     ctrl.searchFilms = searchFilms;
