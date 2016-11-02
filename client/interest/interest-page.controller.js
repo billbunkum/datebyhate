@@ -1,6 +1,6 @@
 //replace SNAKE CASE w/ CAMEL CASE
 
-function interestPageController(omdbAPI, interestAPIService, filmAPIService, meService) {
+function interestPageController(omdbAPI, interestAPIService, filmAPIService, meService, $interval) {
     const ctrl = this;
     ctrl.searchHistory = []; //a SESSION array of all data returned from omdbapi
     ctrl.films = null; //objects of data returned from omdbapi
@@ -19,7 +19,6 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
             ctrl.searchHistory.push(data);
             // console.log(data);
             });
-//        return ctrl.films;
 //  ADD ERROR MSG if search returns 'false'
     } // END searchFilms
 
@@ -35,19 +34,19 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
     } // END checkForDuplicates
 
     function addInterest(savedInterest) { 
-//ACTIVATES w/ HATE IT button; ctrl.films -> interestPageCtrl.films
+//ACTIVATES w/ HATE IT button; savedInterest -> ctrl.films -> interestPageCtrl.films
 //  FIRST, saves film to db, THEN saves interest to db using film_id
         ctrl.savedInterest = {
             title: savedInterest.Title,
             genre: savedInterest.Genre,
             director: savedInterest.Director,
             imdbID: savedInterest.imdbID,
+            plot: savedInterest.Plot,
         };
-
+        // console.log(ctrl.savedInterest);
 //  CHECKS FOR DUPLICATES in db
         // checkForDuplicates(ctrl.savedInterest);
 
-        // if (ctrl.isDuplicate == false) {
             filmAPIService.films.save(ctrl.savedInterest).$promise.then(
                 (returnData) => {
                     ctrl.interest = {
@@ -55,12 +54,12 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
                         film: returnData.id,
                         imdbID: returnData.imdbID,
                     };
+                   // console.log(returnData);
 
-    //                console.log(returnData);
     //  could REFACTOR into 'addFilm()'' and call 'addInterests()'' within
                     interestAPIService.interests.save(ctrl.interest).$promise.then(
                         (data) => {
-                                // console.log(data);
+                                console.log(data);
                                 ctrl.interestsHistory = [
                                     data,
                                     ...ctrl.interestsHistory,
@@ -72,34 +71,9 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
                         }
                     );
             });
-        // } else {
-        //     alert('Already Hated!');
-        // }
-        ctrl.isDuplicate = false;
     } // END addInterest
 
-    // function getAllHate() {
-    //     ctrl.allMyHates = [];
-
-    //     interestAPIService.interests.get().$promise.then(
-    //         (data) => {
-    //             ctrl.hateBall = data;
-    //             // console.log(data.results[0].user);
-    //             // console.log(ctrl.hateBall);
-    //             for(var x = 0; x < ctrl.hateBall.results.length; x++) {
-    //                 // console.log(data.results[0].user);
-    //                 // console.log(ctrl.hateBall);
-    //                 // console.log(ctrl.hateBall.results[x].user);
-    //                 if (ctrl.hateBall.results[x].user == ctrl.user.id) {
-    //                     ctrl.allMyHates.push(ctrl.hateBall.results[x]);
-    //                 }
-    //     // console.log(ctrl.allMyHates);
-    //             }
-    //     console.log(ctrl.allMyHates);
-    //         });
-    // } // END getAllHate
-
-// simplifying 'getAllHate'; gathers ALL interests
+// gathers ALL interests
     function getAllHate() {
         ctrl.allHate = []; // all every hates; used within getAllHate
 
@@ -130,9 +104,9 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
     function compareAngst() {
         ctrl.othersWithMe = [];
         for (let x = 0; x < ctrl.allHate.length; x++) {
-            console.log(ctrl.allHate[x].imdbID);
+            // console.log(ctrl.allHate[x].imdbID);
             if (ctrl.allHate[x].imdbID == ctrl.allMyHates[x].imdbID) {
-                match = { 
+                let match = { 
                     hateBuddy : [ 
                         ctrl.allHate[x].user, 
                         ctrl.allHate[x].imdbID, 
@@ -150,15 +124,18 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
 
     } // END persistOthersWithMe
 
-// on pageLoad gets current user
+// gets current user at /me
     function getMe() {
         meService.me().then( (me) => {
             // console.log(me);
             ctrl.user = me;
         })
     }
+
+// PAGE LOAD functions
     getMe();
     getAllHate();//calls getMyAngst() w/in 'then clause'
+    // $interval(getAllHate, 5000);
     compareAngst();
 
 //  functions
