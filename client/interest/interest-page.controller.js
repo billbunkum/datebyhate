@@ -10,6 +10,7 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
     ctrl.interestsHistory = []; //SESSION list of saved interests
     ctrl.isDuplicate = false; //used to see if film is already in db
     ctrl.allMyHates = []; //all a user's 'hates'; used within getMyAngst
+    ctrl.allHate = []; // all every hates; used within getAllHate
 
     function searchFilms() {
         omdbAPI.get({
@@ -59,7 +60,7 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
     //  could REFACTOR into 'addFilm()'' and call 'addInterests()'' within
                     interestAPIService.interests.save(ctrl.interest).$promise.then(
                         (data) => {
-                                console.log(data);
+                                // console.log(data);
                                 ctrl.interestsHistory = [
                                     data,
                                     ...ctrl.interestsHistory,
@@ -75,8 +76,6 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
 
 // gathers ALL interests
     function getAllHate() {
-        ctrl.allHate = []; // all every hates; used within getAllHate
-
         interestAPIService.interests.get().$promise.then(
             (data) => {
                 ctrl.hateBall = data;
@@ -96,6 +95,7 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
                 ctrl.allMyHates.push(ctrl.allHate[x]);
             }
         }
+        compareAngst();
         // console.log(ctrl.allMyHates);
     } // END getMyAngst
 
@@ -103,22 +103,35 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
 //  stores results in 'ctrl.othersWithMe' as a 'hateBuddy' object
     function compareAngst() {
         ctrl.othersWithMe = [];
-        for (let x = 0; x < ctrl.allHate.length; x++) {
-            // console.log(ctrl.allHate[x].imdbID);
-            if (ctrl.allHate[x].imdbID == ctrl.allMyHates[x].imdbID) {
-                let match = { 
-                    hateBuddy : [ 
-                        ctrl.allHate[x].user, 
-                        ctrl.allHate[x].imdbID, 
-                        ctrl.allHate[x].film 
-                    ] 
-                };
-                ctrl.othersWithMe.push(match);
+        let match = {};
+
+        for (let x = 0; x < ctrl.allMyHates.length; x++) {
+            for (let i = 0; i < ctrl.allHate.length; i++) {
+                if (ctrl.allHate[i].imdbID === ctrl.allMyHates[x].imdbID) {
+                    match = { 
+                        hateBuddy : [ 
+                            ctrl.allHate[x].user, 
+                            ctrl.allHate[x].imdbID, 
+                            ctrl.allHate[x].film 
+                        ] 
+                    };
+                    ctrl.othersWithMe.push(match);
+                }
+                match = {};
             }
-            match = {};
         }
-        // console.log(ctrl.othersWithMe);
+        if (ctrl.othersWithMe == undefined) {
+            alert('No hate matches\; keep hating to date!');
+        }
+
+        clearData();
+        console.log(ctrl.othersWithMe);
     } // END compareAngst
+
+    function clearData () {
+        ctrl.allHate = [];
+        ctrl.allMyHates = [];
+    }
 
     function persistOthersWithMe() {
 
@@ -135,8 +148,7 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
 // PAGE LOAD functions
     getMe();
     getAllHate();//calls getMyAngst() w/in 'then clause'
-    // $interval(getAllHate, 5000);
-    compareAngst();
+    $interval(getAllHate, 5000);
 
 //  functions
     ctrl.searchFilms = searchFilms;
@@ -145,6 +157,7 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
     ctrl.getAllHate = getAllHate; //gathers all 'interests/hates' into 'ctrl.hateBall'
     ctrl.getMyAngst = getMyAngst; //pulls 'my angst' from 'ctrl.hateBall'
     ctrl.compareAngst = compareAngst; // uses 'ctrl.allMyHates' & 'ctrl.allHate' to populate 'ctrl.othersWithMe'
+    ctrl.clearData = clearData; // stopping aggregate 'push'to interval functions
     ctrl.persistOthersWithMe = persistOthersWithMe; // persists data comparison got from 'compareAngst'
 }; // END interestPageController
 
