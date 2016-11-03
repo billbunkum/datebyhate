@@ -1,18 +1,21 @@
-
-<div class="row">
-    <div class="col-md-12">
-        <form ng-show="hatePageCtrl.hates">
-            My Angst:
-            <p ng-repeat="hate in hatePageCtrl.hates track by $index">
-            {{ hate }}
-                <panel>
-                    {{ hate.film.title }}
-                </panel>
-                <panel>
-                    <img src="" title="{{ hate.film.title }}" />
-                </panel>
-            </p>
-        </form>
+<h2>MY ANGST:</h2>
+<form ng-show="hatePageCtrl.hates">
+    <div class="form-group">
+        <p ng-repeat="hate in hatePageCtrl.hates track by $index">
+        
+            <panel>
+                {{ hate.film.title }}
+            </panel>
+        <br />
+            <label for="date">
+                    Date Hated
+            </label>
+            <panel id="date">
+                {{ hate.date | date: medium : 'EST' }}
+            </panel>
+        
+        </p>
     </div>
-</div>
+</form>
+
 

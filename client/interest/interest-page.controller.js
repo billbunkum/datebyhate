@@ -6,10 +6,14 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
     ctrl.films = null; //objects of data returned from omdbapi
     ctrl.search_capture = null; //what is typed by user
     ctrl.interestsHistory = []; //SESSION list of saved interests
-    ctrl.isDuplicate = false; //used to see if film is already in db
     ctrl.allMyHates = []; //all a user's 'hates'; used within getMyAngst
     ctrl.allHate = []; // all every hates; used within getAllHate
     ctrl.displayMyHates = []; // used to display My Angst on the page (not for calcs in controller)
+    ctrl.myAngst = false; // reveals myAngst in DOM
+
+    function showMyAngst() {
+        ctrl.myAngst = ctrl.myAngst ? false: true;
+    }
 
     function searchFilms() {
         omdbAPI.get({
@@ -50,30 +54,19 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
 
             if(data === undefined) {
                 return autoSearch();
-            }
-            cleanedData = data.Search.filter(Boolean);
+            } else {
+                cleanedData = data.Search.filter(Boolean);
 
-            if(cleanedData.length < 4) {
-                return autoSearch();
+                if(cleanedData.length < 4) {
+                    return autoSearch();
+                }
+                
+                for(let x = 0; x < 4; x++){
+                    ctrl.suggestions.push(cleanedData[x]);
+                }
             }
-            
-            for(let x = 0; x < 4; x++){
-                ctrl.suggestions.push(cleanedData[x]);
-            }
-
         });
     } // END autoSearch
-
-    function checkForDuplicates(filmRequest) {
-        filmAPIService.films.get(filmRequest).$promise.then(
-                (data) => {
-                    if (data.user != null) { 
-                        ctrl.isDuplicate = true;
-                    }
-                    return ctrl.isDuplicate;
-                }
-            );
-    } // END checkForDuplicates
 
     function addInterest(savedInterest) { 
 //ACTIVATES w/ HATE IT button; savedInterest -> ctrl.films -> interestPageCtrl.films
@@ -138,7 +131,6 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
         }
         ctrl.displayMyHates = ctrl.allMyHates;
         displayMyAngst();
-        console.log(ctrl.displayMyHates);
         compareAngst();
     } // END getMyAngst
 
@@ -195,11 +187,11 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
     // $interval(getAllHate, 5000);
 
 //  functions
+    ctrl.showMyAngst = showMyAngst;
     ctrl.searchFilms = searchFilms;
     ctrl.getRandomLetter = getRandomLetter;
     ctrl.autoSearch = autoSearch; // auto populates w/o need for active search
     ctrl.addInterest = addInterest;
-    ctrl.checkForDuplicates = checkForDuplicates;
     ctrl.getAllHate = getAllHate; //gathers all 'interests/hates' into 'ctrl.hateBall'
     ctrl.getMyAngst = getMyAngst; //pulls 'my angst' from 'ctrl.hateBall'
     ctrl.compareAngst = compareAngst; // uses 'ctrl.allMyHates' & 'ctrl.allHate' to populate 'ctrl.othersWithMe'
