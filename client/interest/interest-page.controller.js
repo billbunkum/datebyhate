@@ -9,6 +9,7 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
     ctrl.isDuplicate = false; //used to see if film is already in db
     ctrl.allMyHates = []; //all a user's 'hates'; used within getMyAngst
     ctrl.allHate = []; // all every hates; used within getAllHate
+    ctrl.displayMyHates = []; // used to display My Angst on the page (not for calcs in controller)
 
     function searchFilms() {
         omdbAPI.get({
@@ -60,8 +61,6 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
                 ctrl.suggestions.push(cleanedData[x]);
             }
 
-            // ctrl.filmCount = ctrl.suggestions.length;
-            console.log(ctrl.suggestions);
         });
     } // END autoSearch
 
@@ -100,7 +99,7 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
                    // console.log(returnData);
 
     //  could REFACTOR into 'addFilm()'' and call 'addInterests()'' within
-                    interestAPIService.interests.save(ctrl.interest).$promise.then(
+                    interestAPIService.createInterests.save(ctrl.interest).$promise.then(
                         (data) => {
                                 // console.log(data);
                                 ctrl.interestsHistory = [
@@ -137,8 +136,9 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
                 ctrl.allMyHates.push(ctrl.allHate[x]);
             }
         }
+        ctrl.displayMyHates = ctrl.allMyHates;
+        displayMyAngst();
         compareAngst();
-        // console.log(ctrl.allMyHates);
     } // END getMyAngst
 
 //  compares 'ctrl.allMyHates' imdbID s w/ other imdbID s w/in 'ctrl.allHate'
@@ -161,7 +161,7 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
                 }
             }
         }
-        console.log(ctrl.othersWithMe);
+        // console.log(ctrl.othersWithMe);
         clearData();
     } // END compareAngst
 
@@ -172,13 +172,13 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
     }
 
 // uses 'ctrl.othersWithMe' to grab user & imdbIDs
-    function filterOthersWithMe() {
-
-        }
-
-    function persistOthersWithMe() {
-
-    } // END persistOthersWithMe
+    function displayMyAngst() {
+        filmAPIService.films.get(ctrl.displayMyHates[0].user)
+        .$promise.then( (data) => {
+            console.log(data);
+            console.log(ctrl.displayMyHates);
+        });
+    }
 
 // gets current user at /me
     function getMe() {
@@ -203,8 +203,7 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
     ctrl.getMyAngst = getMyAngst; //pulls 'my angst' from 'ctrl.hateBall'
     ctrl.compareAngst = compareAngst; // uses 'ctrl.allMyHates' & 'ctrl.allHate' to populate 'ctrl.othersWithMe'
     ctrl.clearData = clearData; // stopping aggregate 'push'to interval functions
-    ctrl.persistOthersWithMe = persistOthersWithMe; // persists data comparison got from 'compareAngst'
-    ctrl.filterOthersWithMe = filterOthersWithMe;
+    ctrl.displayMyAngst = displayMyAngst; // uses ctrl.displayMyAngst to render to html
 }; // END interestPageController
 
 export default interestPageController;

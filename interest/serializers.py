@@ -18,8 +18,13 @@ class FilmSerializer(serializers.ModelSerializer):
 #        read_only = ('current_user', )
 
 class InterestSerializer(serializers.ModelSerializer):
-
+    film = FilmSerializer()
     class Meta:
         model = Interest
         fields = ( 'id', 'date', 'user', 'film', 'imdbID', )
-#        read_only_fields = ( 'id', 'current_user_id', )
+        read_only_fields = ( 'id', 'user', 'film', 'imdbID', )
+
+class CreateInterestSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Interest
+        fields = ( 'id', 'date', 'user', 'film', 'imdbID', )

@@ -4,12 +4,17 @@ from rest_framework.generics import RetrieveAPIView
 from django.contrib.auth.models import User
 
 from .models import Interest, Film
-from .serializers import InterestSerializer, UserSerializer, FilmSerializer
+from .serializers import InterestSerializer, UserSerializer, FilmSerializer, CreateInterestSerializer
 
+# for GET requests only
 class InterestViewSet(viewsets.ModelViewSet):
     queryset = Interest.objects.all()
     serializer_class = InterestSerializer
 #   notifies router.urls in api to go through InterestSerializer (whitelist, blacklist) models
+
+class CreateInterestViewSet(viewsets.ModelViewSet):
+    queryset = Interest.objects.all()
+    serializer_class = CreateInterestSerializer
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()

@@ -1,8 +1,12 @@
 
-<p>
-    My Angst:
-<!-- <pre>
-     hatePageCtrl.hates | json 
-</pre> -->
-</p>
+<div class="row">
+    <div class="col-md-3">
+        <form ng-show="hatePageCtrl.hates">
+            My Angst:
+            <p ng-repeat="hate in hatePageCtrl.hates track by $index">
+                 {{ hate }}
+            </p>
+        </form>
+    </div>
+</div>
 
