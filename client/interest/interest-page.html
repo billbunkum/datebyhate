@@ -1,16 +1,26 @@
 <!-- interestPageCtrl -->
-<button 
-    ng-click="interestPageCtrl.showMyAngst()"
-    class="btn btn-default"
->
-    Show My Angst
-</button>
 <div class="row">
-
-    <div class="col-md-3">
-        <form 
-            ng-click="interestPageCtrl.searchFilms()"
+    <div class="col-md-4">
+        <button 
+            ng-click="interestPageCtrl.showMyAngst()"
+            class="btn btn-default"
         >
+            Show My Angst
+        </button>
+        <button 
+            type="submit"
+            class="btn btn-default"
+            ng-click="interestPageCtrl.autoSearch()">
+                Get Suggestions
+        </button>
+    </div>
+    <div class="col-md-4"></div>
+    <div class="col-md-4"></div>
+</div>
+<br />
+<div class="row">
+    <div class="col-md-4">
+        <form ng-click="interestPageCtrl.searchFilms()">
             <div class="form-group">
                 <label for="this">Search Films To Hate</label>
                 <input 
@@ -29,8 +39,12 @@
             </div>
         </form>
     </div>
+    <div class="col-md-4"></div>
+    <div class="col-md-4"></div>
+</div>
 
-    <div class="col-md-6">
+<div class="row">
+    <div class="col-md-3">
         <!-- search output -->
         <form ng-show="interestPageCtrl.films">
             <div class="form-group">
@@ -41,11 +55,9 @@
                 />
             </div>
         </form>
-
     </div>
-</div>
-<div class="row">
-    <div class="col-md-2">
+
+    <div class="col-md-3">
         <form ng-show="interestPageCtrl.films">
             <div class="form-group">
                 <label for="title">Title</label>
@@ -78,12 +90,15 @@
             </button>
         </form>
     </div>
-    <div class="col-md-10"></div>
+
+    <div class="col-md-1"></div>
+    <div class="col-md-5">
         <hate-page 
             ng-show="interestPageCtrl.myAngst"
             hates="interestPageCtrl.displayMyHates" 
         >
         </hate-page>
+    </div>
 </div>
 
 <div class="row">
@@ -96,12 +111,6 @@
                     {{ suggestion }}
                 </p>
             </div>
-            <button 
-                type="submit"
-                class="btn btn-default"
-                ng-click="interestPageCtrl.autoSearch()">
-                    Get Suggestions
-            </button>
         </form>
     </div>
     <div class="col-md-1"></div>
