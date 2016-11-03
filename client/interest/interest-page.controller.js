@@ -138,6 +138,7 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
         }
         ctrl.displayMyHates = ctrl.allMyHates;
         displayMyAngst();
+        console.log(ctrl.displayMyHates);
         compareAngst();
     } // END getMyAngst
 
@@ -175,8 +176,8 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
     function displayMyAngst() {
         filmAPIService.films.get(ctrl.displayMyHates[0].user)
         .$promise.then( (data) => {
-            console.log(data);
-            console.log(ctrl.displayMyHates);
+            // console.log(data);
+            // console.log(ctrl.displayMyHates);
         });
     }
 

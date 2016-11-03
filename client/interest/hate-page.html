@@ -1,10 +1,16 @@
 
 <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-12">
         <form ng-show="hatePageCtrl.hates">
             My Angst:
             <p ng-repeat="hate in hatePageCtrl.hates track by $index">
-                 {{ hate }}
+            {{ hate }}
+                <panel>
+                    {{ hate.film.title }}
+                </panel>
+                <panel>
+                    <img src="" title="{{ hate.film.title }}" />
+                </panel>
             </p>
         </form>
     </div>
