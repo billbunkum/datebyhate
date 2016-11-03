@@ -9,7 +9,6 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
     ctrl.isDuplicate = false; //used to see if film is already in db
     ctrl.allMyHates = []; //all a user's 'hates'; used within getMyAngst
     ctrl.allHate = []; // all every hates; used within getAllHate
-    ctrl.suggestions = null;
 
     function searchFilms() {
         omdbAPI.get({
@@ -24,24 +23,39 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
     } // END searchFilms
 
     function getRandomLetter() {
-        let randoNumber = 0; //26 letters
+        let randoNumber1 = 0; //26 letters
+        let randoNumber2 = 0;
+        let randoLetter1 = "";
+        let randoLetter2 = "";
         ctrl.randoLetter = "";
         const alphabet = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z',]
-        randoNumber = Math.floor(Math.random() * (27 - 1) + 1);
-        ctrl.randoLetter = alphabet[randoNumber - 1];
-        return ctrl.randoLetter;
+        randoNumber1 = Math.floor(Math.random() * (27 - 1) + 1);
+        randoNumber2 = Math.floor(Math.random() * (27 - 1) + 1);
+        randoLetter1 = alphabet[randoNumber1 - 1];
+        randoLetter2 = alphabet[randoNumber2 - 1];
+        ctrl.randoLetter = randoLetter1 + randoLetter2;
     }
 
     function autoSearch() {
+        ctrl.filmCount = 0;
+        ctrl.suggestions = [];
         getRandomLetter();
 
         omdbAPI.get({
             s: ctrl.randoLetter
         })
         .$promise.then( (data) => {
-            ctrl.suggestions = data;
+            if(data.Response === "False"){
+                autoSearch();
+            } else {
+                for(let x = 0; x < 4; x++){
+                    ctrl.suggestions.push(data.Search[x]);
+                }
+            }
+            // ctrl.filmCount = ctrl.suggestions.length;
+            console.log(ctrl.suggestions);
         });
-    }
+    } // END autoSearch
 
     function checkForDuplicates(filmRequest) {
         filmAPIService.films.get(filmRequest).$promise.then(
