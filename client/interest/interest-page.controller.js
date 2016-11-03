@@ -4,24 +4,44 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
     const ctrl = this;
     ctrl.searchHistory = []; //a SESSION array of all data returned from omdbapi
     ctrl.films = null; //objects of data returned from omdbapi
-    ctrl.search_type = "title"; // specifies the 't' param for omdbapi
-    ctrl.title = null; // string 't='
     ctrl.search_capture = null; //what is typed by user
     ctrl.interestsHistory = []; //SESSION list of saved interests
     ctrl.isDuplicate = false; //used to see if film is already in db
     ctrl.allMyHates = []; //all a user's 'hates'; used within getMyAngst
     ctrl.allHate = []; // all every hates; used within getAllHate
+    ctrl.suggestions = null;
 
     function searchFilms() {
         omdbAPI.get({
             t: ctrl.search_capture
-        }).$promise.then( (data) => {
+        })
+        .$promise.then( (data) => {
             ctrl.films = data;
             ctrl.searchHistory.push(data);
             // console.log(data);
-            });
+        });
 //  ADD ERROR MSG if search returns 'false'
     } // END searchFilms
+
+    function getRandomLetter() {
+        let randoNumber = 0; //26 letters
+        ctrl.randoLetter = "";
+        const alphabet = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z',]
+        randoNumber = Math.floor(Math.random() * (27 - 1) + 1);
+        ctrl.randoLetter = alphabet[randoNumber - 1];
+        return ctrl.randoLetter;
+    }
+
+    function autoSearch() {
+        getRandomLetter();
+
+        omdbAPI.get({
+            s: ctrl.randoLetter
+        })
+        .$promise.then( (data) => {
+            ctrl.suggestions = data;
+        });
+    }
 
     function checkForDuplicates(filmRequest) {
         filmAPIService.films.get(filmRequest).$promise.then(
@@ -112,7 +132,7 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
                         hateBuddy : [ 
                             ctrl.allHate[i].user, 
                             ctrl.allHate[i].imdbID, 
-                            // ctrl.allHate[i].film 
+                            // ctrl.allHate[i].film
                         ] 
                     };
                     ctrl.othersWithMe.push(match);
@@ -123,12 +143,16 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
         clearData();
     } // END compareAngst
 
+// clears data so that interval doesn't aggregate 'ctrl.othersWithMe'
     function clearData () {
         ctrl.allHate = [];
         ctrl.allMyHates = [];
     }
 
+// uses 'ctrl.othersWithMe' to grab user & imdbIDs
+    function filterOthersWithMe() {
 
+        }
 
     function persistOthersWithMe() {
 
@@ -149,6 +173,8 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
 
 //  functions
     ctrl.searchFilms = searchFilms;
+    ctrl.getRandomLetter = getRandomLetter;
+    ctrl.autoSearch = autoSearch; // auto populates w/o need for active search
     ctrl.addInterest = addInterest;
     ctrl.checkForDuplicates = checkForDuplicates;
     ctrl.getAllHate = getAllHate; //gathers all 'interests/hates' into 'ctrl.hateBall'
@@ -156,6 +182,7 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
     ctrl.compareAngst = compareAngst; // uses 'ctrl.allMyHates' & 'ctrl.allHate' to populate 'ctrl.othersWithMe'
     ctrl.clearData = clearData; // stopping aggregate 'push'to interval functions
     ctrl.persistOthersWithMe = persistOthersWithMe; // persists data comparison got from 'compareAngst'
+    ctrl.filterOthersWithMe = filterOthersWithMe;
 }; // END interestPageController
 
 export default interestPageController;
