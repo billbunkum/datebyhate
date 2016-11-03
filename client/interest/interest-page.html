@@ -94,8 +94,8 @@
 <!-- ng-show="interestPageCtrl.suggestions" -->
         <form>
             <div class="form-group">
-                <p ng-repeat="suggestion in interestPageCtrl.suggestions track by suggestion.imdbID">
-                    {{ suggestion}}
+                <p ng-repeat="suggestion in interestPageCtrl.suggestions track by $index">
+                    {{ suggestion }}
                 </p>
             </div>
             <button 

@@ -33,7 +33,7 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
         randoNumber2 = Math.floor(Math.random() * (27 - 1) + 1);
         randoLetter1 = alphabet[randoNumber1 - 1];
         randoLetter2 = alphabet[randoNumber2 - 1];
-        ctrl.randoLetter = randoLetter1 + randoLetter2;
+        ctrl.randoLetters = randoLetter1 + randoLetter2;
     }
 
     function autoSearch() {
@@ -42,16 +42,24 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
         getRandomLetter();
 
         omdbAPI.get({
-            s: ctrl.randoLetter
+            s: ctrl.randoLetters
         })
         .$promise.then( (data) => {
-            if(data.Response === "False"){
-                autoSearch();
-            } else {
-                for(let x = 0; x < 4; x++){
-                    ctrl.suggestions.push(data.Search[x]);
-                }
+            let cleanedData = [];
+
+            if(data === undefined) {
+                return autoSearch();
             }
+            cleanedData = data.Search.filter(Boolean);
+
+            if(cleanedData.length < 4) {
+                return autoSearch();
+            }
+            
+            for(let x = 0; x < 4; x++){
+                ctrl.suggestions.push(cleanedData[x]);
+            }
+
             // ctrl.filmCount = ctrl.suggestions.length;
             console.log(ctrl.suggestions);
         });
