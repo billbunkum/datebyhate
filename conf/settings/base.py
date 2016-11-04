@@ -14,7 +14,7 @@ LOGIN_REDIRECT_URL = '/'
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ['SECRET_KEY']
-OMDB_API_KEY = os.environ['OMDB_API_KEY']
+#OMDB_API_KEY = os.environ['OMDB_API_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 ALLOWED_HOSTS = []
