@@ -14,15 +14,16 @@ class FilmSerializer(serializers.ModelSerializer):
     class Meta:
 #   must whitelist 'id' in fields so 'interests' can be persisted by film id
         model = Film
-        fields = ('id', 'title', 'genre', 'director', 'imdbID', 'plot', )
+        fields = ('id', 'title', 'genre', 'director', 'imdbID', 'plot', 'url', )
 #        read_only = ('current_user', )
 
 class InterestSerializer(serializers.ModelSerializer):
     film = FilmSerializer()
+
     class Meta:
         model = Interest
-        fields = ( 'id', 'date', 'user', 'film', 'imdbID', )
-        read_only_fields = ( 'id', 'user', 'film', 'imdbID', )
+        fields = ( 'id', 'date', 'user', 'film', 'imdbID', 'username', )
+        read_only_fields = ( 'id', 'user', 'film', 'imdbID', 'username', )
 
 class CreateInterestSerializer(serializers.ModelSerializer):
     class Meta:

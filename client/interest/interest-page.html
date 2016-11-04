@@ -40,7 +40,7 @@
             <div class="form-group">
                 <img 
                     ng-show="interestPageCtrl.films.Poster"
-                    src="{{ interestPageCtrl.films.Poster }}" 
+                    ng-src="{{ interestPageCtrl.films.Poster }}" 
                     width="200px" 
                 />
             </div>
@@ -84,39 +84,46 @@
         >
         </hate-page>
 
+        <compare-page
+            others="interestPageCtrl.othersWithMe"
+            update="interestPageCtrl.displayHateBuddies()"
+        >
+        </compare-page>
+
         <form>
             <div class="form-group">
                 <p ng-repeat="suggestion in interestPageCtrl.suggestions track by $index">
                     <span class="col-md-3">
-                        <panel>
-                            <img 
-                                src="{{ suggestion.Poster }}" alt="No Poster Available"
-                                width="200px" 
-                            />
-                        </panel><br />
+                        <a href="#" class="thumbnail">
+                            <panel>
+                                <img 
+                                    ng-src="{{ suggestion.Poster }}" alt="No Poster Available"
+                                    width="200px" 
+                                />
+                            </panel><br />
 
-                        <label for="title">Title</label>
-                        <panel id="title">
-                            {{ suggestion.Title }}
-                        </panel><br />
+                            <label for="title">Title</label>
+                            <panel id="title">
+                                {{ suggestion.Title }}
+                            </panel><br />
 
-                        <label for="type">Type</label>
-                        <panel id="type">
-                            {{ suggestion.Type }}
-                        </panel><br />
+                            <label for="type">Type</label>
+                            <panel id="type">
+                                {{ suggestion.Type }}
+                            </panel><br />
 
-                        <label for="year">Year</label>
-                        <panel id="year">
-                            {{ suggestion.Year }}
-                        </panel><br />
-                        <button 
-                            type="submit" 
-                            class="btn btn-default" 
-                            ng-click="interestPageCtrl.addInterest(interestPageCtrl.suggestions)"
-                        >
-<!-->BUTTON DOES NOT WORK</!-->
-                            Hate it
-                        </button>
+                            <label for="year">Year</label>
+                            <panel id="year">
+                                {{ suggestion.Year }}
+                            </panel><br />
+                            <button 
+                                type="submit" 
+                                class="btn btn-default" 
+                                ng-click="interestPageCtrl.addInterest(suggestion)"
+                            >
+                                Hate it
+                            </button>
+                        </a>
                     </span>
                 </p>
             </div>

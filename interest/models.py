@@ -9,6 +9,7 @@ class Film(models.Model):
     director = models.CharField(max_length=300, blank=True)
     imdbID = models.CharField(max_length=300, default="empty")
     plot = models.CharField(max_length=1000, blank=True)
+    url = models.URLField(default="http://", blank=True)
 
     def __str__(self):
         return self.title
@@ -20,3 +21,6 @@ class Interest(models.Model):
 
     def imdbID (self):
         return self.film.imdbID
+
+    def username (self):
+        return self.user.username

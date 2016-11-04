@@ -1,7 +1,7 @@
 <form>
 <h3>MY ANGST:</h3>
     <div class="form-group">
-        <p ng-repeat="hate in hatePageCtrl.hates track by $index">
+        <p ng-repeat="hate in hatePageCtrl.hates | unique:'film.title' track by $index">
         
             <panel>
                 {{ hate.film.title }}
@@ -11,11 +11,9 @@
                     Date Hated
             </label>
             <panel id="date">
-                {{ hate.date | date: medium : 'EST' }}
+                {{ hate.date |date: medium : 'EST' }}
             </panel>
         
         </p>
     </div>
 </form>
-
-

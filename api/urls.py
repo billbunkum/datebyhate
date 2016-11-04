@@ -5,7 +5,7 @@ from interest.viewsets import InterestViewSet, FilmViewSet, UserViewSet, Current
 
 
 router = routers.DefaultRouter()
-router.register(r'interests', InterestViewSet)
+router.register(r'interests', InterestViewSet) #not showing up in API??
 router.register(r'films', FilmViewSet)
 router.register(r'users', UserViewSet)
 router.register(r'createInterests', CreateInterestViewSet)

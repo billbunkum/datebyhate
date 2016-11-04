@@ -3,10 +3,11 @@ import angular from 'angular';
 import appComponent from './app.component';
 import interestModule from '../interest/interest.module';
 import meService from '../me/me.service';
-
+import angularFilter from 'angular-filter';
 
 const AppModule = angular.module('root', [
     interestModule.name,
+    angularFilter,
 ])
     .config(function($httpProvider) {
         $httpProvider.defaults.xsrfCookieName = 'csrftoken';

@@ -52,7 +52,7 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
         .$promise.then( (data) => {
             let cleanedData = [];
 
-            if(data === undefined) {
+            if(data == undefined) {
                 return autoSearch();
             } else {
                 cleanedData = data.Search.filter(Boolean);
@@ -80,10 +80,11 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
 //  FIRST, saves film to db, THEN saves interest to db using film_id
         ctrl.savedInterest = {
             title: savedInterest.Title,
-            genre: savedInterest.Genre,
+            genre: (savedInterest.Genre || "movie"),
             director: savedInterest.Director,
             imdbID: savedInterest.imdbID,
             plot: savedInterest.Plot,
+            url: savedInterest.Poster,
         };
 
         filmAPIService.films.save(ctrl.savedInterest).$promise.then(
@@ -92,6 +93,7 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
                     user: ctrl.user.id,
                     film: returnData.id,
                     imdbID: returnData.imdbID,
+                    url: returnData.url,
                 };
                // console.log(returnData);
 
@@ -144,23 +146,29 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
         ctrl.othersWithMe = [];
         let match = {};
 
-        for (let x = 0; x < ctrl.allMyHates.length; x++) {
-            for (let i = 0; i < ctrl.allHate.length; i++) {
-                if (ctrl.allHate[i].imdbID === ctrl.allMyHates[x].imdbID && ctrl.allHate[i].user != ctrl.user.id) {
+        for (let i = 0; i < ctrl.allHate.length; i++) {
+            for (let x = 0; x < ctrl.allMyHates.length; x++) {
+                if (ctrl.allHate[i].imdbID == ctrl.allMyHates[x].imdbID && ctrl.allHate[i].user != ctrl.user.id) {
                     match = { 
-                        hateBuddy : [ 
-                            ctrl.allHate[i].user, 
-                            ctrl.allHate[i].imdbID, 
-                            // ctrl.allHate[i].film
-                        ] 
+                        hateBuddy : { 
+                            userID: ctrl.allHate[i].user, 
+                            imdbID: ctrl.allHate[i].imdbID, 
+                            username: ctrl.allHate[i].username,
+                            title: ctrl.allHate[i].film.title,
+                            url: ctrl.allHate[i].film.url,
+                        }
                     };
                     ctrl.othersWithMe.push(match);
                 }
             }
         }
-        // console.log(ctrl.othersWithMe);
+        console.log(ctrl.othersWithMe);
         clearData();
     } // END compareAngst
+
+    function displayHateBuddies() {
+        alert('here be hate!');
+    }
 
 // clears data so that interval doesn't aggregate 'ctrl.othersWithMe'
     function clearData () {
@@ -199,6 +207,7 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
     ctrl.getAllHate = getAllHate; //gathers all 'interests/hates' into 'ctrl.hateBall'
     ctrl.getMyAngst = getMyAngst; //pulls 'my angst' from 'ctrl.hateBall'
     ctrl.compareAngst = compareAngst; // uses 'ctrl.allMyHates' & 'ctrl.allHate' to populate 'ctrl.othersWithMe'
+    ctrl.displayHateBuddies = displayHateBuddies;
     ctrl.clearData = clearData; // stopping aggregate 'push'to interval functions
     ctrl.displayMyAngst = displayMyAngst; // uses ctrl.displayMyAngst to render to html
 }; // END interestPageController
