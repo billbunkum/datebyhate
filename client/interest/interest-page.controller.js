@@ -60,9 +60,16 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
                 if(cleanedData.length < 4) {
                     return autoSearch();
                 }
-                
+
                 for(let x = 0; x < 4; x++){
-                    ctrl.suggestions.push(cleanedData[x]);
+                    if(cleanedData[x].Poster == "N/A"){
+                        return autoSearch();
+                    } else {
+                        ctrl.suggestions.push(cleanedData[x]);
+                        if(ctrl.suggestions.length >= 3) {
+                            x = 4;
+                        }
+                    }
                 }
             }
         });
@@ -78,34 +85,31 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
             imdbID: savedInterest.imdbID,
             plot: savedInterest.Plot,
         };
-        // console.log(ctrl.savedInterest);
-//  CHECKS FOR DUPLICATES in db
-        // checkForDuplicates(ctrl.savedInterest);
 
-            filmAPIService.films.save(ctrl.savedInterest).$promise.then(
-                (returnData) => {
-                    ctrl.interest = {
-                        user: ctrl.user.id,
-                        film: returnData.id,
-                        imdbID: returnData.imdbID,
-                    };
-                   // console.log(returnData);
+        filmAPIService.films.save(ctrl.savedInterest).$promise.then(
+            (returnData) => {
+                ctrl.interest = {
+                    user: ctrl.user.id,
+                    film: returnData.id,
+                    imdbID: returnData.imdbID,
+                };
+               // console.log(returnData);
 
-    //  could REFACTOR into 'addFilm()'' and call 'addInterests()'' within
-                    interestAPIService.createInterests.save(ctrl.interest).$promise.then(
-                        (data) => {
-                                // console.log(data);
-                                ctrl.interestsHistory = [
-                                    data,
-                                    ...ctrl.interestsHistory,
-    // '...'' is an ES6 'spread operator'; takes every item in spread array 
-    //'...ctrl.interests' and pastes into parent array 'ctrl.interests'
-                                ];
-                        // console.log(ctrl.interestsHistory);
-                        alert('Hated!');
-                        }
-                    );
-            });
+//  could REFACTOR into 'addFilm()'' and call 'addInterests()'' within
+                interestAPIService.createInterests.save(ctrl.interest).$promise.then(
+                    (data) => {
+                            // console.log(data);
+                            ctrl.interestsHistory = [
+                                data,
+                                ...ctrl.interestsHistory,
+// '...'' is an ES6 'spread operator'; takes every item in spread array 
+//'...ctrl.interests' and pastes into parent array 'ctrl.interests'
+                            ];
+                    // console.log(ctrl.interestsHistory);
+                    alert('Hated!');
+                    }
+                );
+        });
     } // END addInterest
 
 // gathers ALL interests
