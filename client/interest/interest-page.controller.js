@@ -10,12 +10,14 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
     ctrl.allHate = []; // all every hates; used within getAllHate
     ctrl.displayMyHates = []; // used to display My Angst on the page (not for calcs in controller)
     ctrl.myAngst = false; // reveals myAngst in DOM
+    ctrl.suggestions = false; // used to toggle singular search & suggestions
 
     function showMyAngst() {
         ctrl.myAngst = ctrl.myAngst ? false: true;
     }
 
     function searchFilms() {
+        ctrl.suggestions = false; //for suggestion / single search toggle
         omdbAPI.get({
             t: ctrl.search_capture
         })
@@ -24,7 +26,7 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
             ctrl.searchHistory.push(data);
             // console.log(data);
         });
-//  ADD ERROR MSG if search returns 'false'
+
     } // END searchFilms
 
     function getRandomLetter() {
@@ -67,12 +69,13 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
                     cleanedData[x].Poster = "http://www.downloadclipart.net/medium/18548-penta-star-clip-art.png"; //stock image
                 }
                 ctrl.suggestions.push(cleanedData[x]);
-                if(ctrl.suggestions.length >= 3) {
+                if(ctrl.suggestions.length > 4) {
                     x = 4;
                 }
             }
             console.log(cleanedData);
         });
+
     } // END autoSearch
 
     function addInterest(savedInterest) { 
@@ -108,6 +111,7 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
 //'...ctrl.interests' and pastes into parent array 'ctrl.interests'
                             ];
                     // console.log(ctrl.interestsHistory);
+                    console.log(data);
                     alert('Hated!');
                     }
                 );
@@ -166,10 +170,6 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
         clearData();
     } // END compareAngst
 
-    function displayHateBuddies() {
-        alert('here be hate!');
-    }
-
 // clears data so that interval doesn't aggregate 'ctrl.othersWithMe'
     function clearData () {
         ctrl.allHate = [];
@@ -212,7 +212,6 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
     ctrl.getAllHate = getAllHate; //gathers all 'interests/hates' into 'ctrl.hateBall'
     ctrl.getMyAngst = getMyAngst; //pulls 'my angst' from 'ctrl.hateBall'
     ctrl.compareAngst = compareAngst; // uses 'ctrl.allMyHates' & 'ctrl.allHate' to populate 'ctrl.othersWithMe'
-    ctrl.displayHateBuddies = displayHateBuddies;
     ctrl.clearData = clearData; // stopping aggregate 'push'to interval functions
     ctrl.displayMyAngst = displayMyAngst; // uses ctrl.displayMyAngst to render to html
 }; // END interestPageController

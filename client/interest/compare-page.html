@@ -1,11 +1,29 @@
 
-<h4>Others who HATE like you</h4>
-    <!-- <div class="row"> -->
-        <div 
-            class="panel" 
-            ng-repeat="other in comparePageCtrl.others |unique:'hateBuddy.username'"
-        >
-            {{ other.hateBuddy.username }}<br />
-            {{ other.hateBuddy.title }}<br />
-            {{ other.hateBuddy.url }}
-        </div>
+<h4>Your <em>Hate Buddies</em></h4>
+<form>
+    <div 
+        ng-repeat="other in comparePageCtrl.others |unique:'hateBuddy.username'"
+    >
+        <span class="col-md-4">
+            <a 
+                href="#" 
+                class="thumbnail"
+            >
+                <label for="username">Hate buddy:</label>
+                    <span id="username">
+                        {{ other.hateBuddy.username }}
+                    </span><br />
+                <label for="title">Title:</label>
+                    <panel id="title">
+                        {{ other.hateBuddy.title }}
+                    </panel><br />
+                <img 
+                    ng-src="{{ other.hateBuddy.url }}" 
+                    height="120px"
+                    width="100px" 
+                    alt="No poster" 
+                /><p />
+            </a>
+        </span>
+    </div>
+</form>

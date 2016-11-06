@@ -13,9 +13,7 @@
             ng-click="interestPageCtrl.autoSearch()">
                 Get Suggestions
         </button>
-
-<br />
-
+<p />
         <form ng-click="interestPageCtrl.searchFilms()">
             <div class="form-group">
                 <label for="this">Search Films To Hate</label>
@@ -26,6 +24,7 @@
                     ng-model="interestPageCtrl.search_capture" 
                     placeholder="Type film title here"
                 >
+<br />
                 <button 
                     type="submit" 
                     class="btn btn-default" 
@@ -36,61 +35,55 @@
         </form>
 
         <!-- search output -->
-        <form ng-show="interestPageCtrl.films">
-            <div class="form-group">
-                <img 
-                    ng-show="interestPageCtrl.films.Poster"
-                    ng-src="{{ interestPageCtrl.films.Poster }}" 
-                    width="200px" 
-                />
-            </div>
-        </form>
-
-        <form ng-show="interestPageCtrl.films">
-            <div class="form-group">
-                <label for="title">Title</label>
-                <panel id="title">
-                    {{ interestPageCtrl.films.Title }}
-                </panel>
-                <br />
-                <label for="genre">Genre</label>
-                <panel id="genre">
-                    {{ interestPageCtrl.films.Genre }}
-                </panel>
-                <br />
-                <label for="type">Type</label>
-                <panel id="type">
-                    {{ interestPageCtrl.films.Type }}
-                </panel>
-                <br />
-                <label for="year">Year</label>
-                    <panel id="year">
-                        {{ interestPageCtrl.films.Year }}
-                    </panel>
-                <br />
-            </div>
-            <button 
-                type="submit" 
-                class="btn btn-default" 
-                ng-click="interestPageCtrl.addInterest(interestPageCtrl.films)"
-            >
-                Hate it
-            </button>
-        </form>
-
-        <hate-page 
-            ng-show="interestPageCtrl.myAngst"
-            hates="interestPageCtrl.displayMyHates" 
-        >
-        </hate-page>
-
-        <compare-page
-            others="interestPageCtrl.othersWithMe"
-            update="interestPageCtrl.displayHateBuddies()"
-        >
-        </compare-page>
 
         <form>
+            <div
+                ng-show="!interestPageCtrl.suggestions"
+                class="form-group"
+            >
+                <a 
+                    href="#"
+                    class="thumbnail"
+                >
+                    <img 
+                        ng-show="interestPageCtrl.films.Poster"
+                        ng-src="{{ interestPageCtrl.films.Poster }}" 
+                        width="200px" 
+                    /><br />
+                    <label for="title">Title</label>
+                    <panel id="title">
+                        {{ interestPageCtrl.films.Title }}
+                    </panel>
+                    <br />
+                    <label for="genre">Genre</label>
+                    <panel id="genre">
+                        {{ interestPageCtrl.films.Genre }}
+                    </panel>
+                    <br />
+                    <label for="type">Type</label>
+                    <panel id="type">
+                        {{ interestPageCtrl.films.Type }}
+                    </panel>
+                    <br />
+                    <label for="year">Year</label>
+                        <panel id="year">
+                            {{ interestPageCtrl.films.Year }}
+                        </panel>
+                    <br />
+                </a>
+                <button 
+                    type="submit" 
+                    class="btn btn-default" 
+                    ng-click="interestPageCtrl.addInterest(interestPageCtrl.films)"
+                >
+                    Hate it
+                </button>
+            </div>
+        </form>
+
+    <div class="row">
+        <form ng-show="interestPageCtrl.suggestions">
+        <h3>Suggested films to Hate</h3>
             <div class="form-group">
                 <p ng-repeat="suggestion in interestPageCtrl.suggestions track by $index">
                     <span class="col-md-3">
@@ -98,6 +91,7 @@
                             <panel>
                                 <img 
                                     ng-src="{{ suggestion.Poster }}" alt="No Poster Available"
+                                    height="220px"
                                     width="200px" 
                                 />
                             </panel><br />
@@ -129,4 +123,22 @@
             </div>
         </form>
     </div>
+
+    <div class="row">
+        <hate-page 
+            ng-show="interestPageCtrl.myAngst"
+            hates="interestPageCtrl.displayMyHates" 
+        >
+        </hate-page>
+    </div>
+
+
+    <div class="row">
+        <compare-page
+            others="interestPageCtrl.othersWithMe"
+            update="interestPageCtrl.displayHateBuddies()"
+        >
+        </compare-page>
+    </div>
+
 </div>

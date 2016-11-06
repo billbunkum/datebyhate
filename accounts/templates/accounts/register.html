@@ -4,7 +4,8 @@
 <h1>
     Register
 </h1>
-    <small>Fill out each field in the form below.</small>
+    <small>Fill out each field in the form below.</small><br />
+    <small><em>REMEMBER</em>, you need a valid e-mail to connect with others</small>
 <hr>
 <form 
     action="{% url 'accounts:register' %}"
@@ -33,6 +34,7 @@
                 class="{{message}}"
                 {% endif %}
             >
+            {{ message }}
             </li>
         {% endfor %}
     </ul>

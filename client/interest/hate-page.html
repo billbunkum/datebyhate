@@ -1,19 +1,28 @@
 <form>
-<h3>MY ANGST:</h3>
+<h3>My <em>Angst</em></h3>
     <div class="form-group">
         <p ng-repeat="hate in hatePageCtrl.hates | unique:'film.title' track by $index">
-        
-            <panel>
-                {{ hate.film.title }}
-            </panel>
-        <br />
-            <label for="date">
-                    Date Hated
-            </label>
-            <panel id="date">
-                {{ hate.date |date: medium : 'EST' }}
-            </panel>
-        
+            <span class="col-md-4">
+                <a 
+                    href="#"
+                    class="thumbnail"
+                >
+                    <panel>
+                        {{ hate.film.title }}
+                    </panel><br />
+
+                    <label for="date">Date Hated</label>
+                    <panel id="date">
+                        {{ hate.date |date: medium : 'EST' }}
+                    </panel><br />
+
+                    <img 
+                        ng-src="{{ hate.film.url }}" 
+                        height="120px"
+                        width="100px"
+                    /><br />
+                </a>
+            </span>
         </p>
     </div>
 </form>
