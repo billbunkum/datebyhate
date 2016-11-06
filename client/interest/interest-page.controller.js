@@ -50,28 +50,33 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
             s: ctrl.randoLetters
         })
         .$promise.then( (data) => {
+            // let tempData = [];
             let cleanedData = [];
 
-            if(data == undefined) {
+            if(data.Response === "False"){
                 return autoSearch();
-            } else {
-                cleanedData = data.Search.filter(Boolean);
+            }
 
-                if(cleanedData.length < 4) {
-                    return autoSearch();
-                }
+            // cleanedData = tempData.Search.filter(Boolean);
+            cleanedData = data.Search.filter(Boolean);
 
-                for(let x = 0; x < 4; x++){
-                    if(cleanedData[x].Poster == "N/A"){
-                        return autoSearch();
-                    } else {
-                        ctrl.suggestions.push(cleanedData[x]);
-                        if(ctrl.suggestions.length >= 3) {
-                            x = 4;
-                        }
+            if(cleanedData.length < 4) {
+                return autoSearch();
+            }
+
+
+// WORK ON THIS NEXT
+            for(let x = 0; x < 4; x++){
+                if(cleanedData[x].Poster === "N/A"){
+                    cleanedData[x].Poster = "http://www.downloadclipart.net/medium/18548-penta-star-clip-art.png"; //stock image
+                } else {
+                    ctrl.suggestions.push(cleanedData[x]);
+                    if(ctrl.suggestions.length >= 3) {
+                        x = 4;
                     }
                 }
             }
+            console.log(cleanedData);
         });
     } // END autoSearch
 
@@ -162,7 +167,7 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
                 }
             }
         }
-        console.log(ctrl.othersWithMe);
+        // console.log(ctrl.othersWithMe);
         clearData();
     } // END compareAngst
 
@@ -177,12 +182,17 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
     }
 
 // uses 'ctrl.othersWithMe' to grab user & imdbIDs
+// 'ctrl.displayMyHates = ctrl.allMyHates' in 'getMyAngst()'
     function displayMyAngst() {
-        filmAPIService.films.get(ctrl.displayMyHates[0].user)
-        .$promise.then( (data) => {
-            // console.log(data);
-            // console.log(ctrl.displayMyHates);
-        });
+        if(ctrl.displayMyHates.length > 0){
+            filmAPIService.films.get(ctrl.displayMyHates[0].user)
+            .$promise.then( (data) => {
+                // console.log(data);
+                // console.log(ctrl.displayMyHates);
+            });
+        } else {
+            alert('No films hated. Search for a film or get some suggestions and START HATING!');
+        }
     }
 
 // gets current user at /me
