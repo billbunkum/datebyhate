@@ -50,30 +50,25 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
             s: ctrl.randoLetters
         })
         .$promise.then( (data) => {
-            // let tempData = [];
             let cleanedData = [];
 
             if(data.Response === "False"){
                 return autoSearch();
             }
 
-            // cleanedData = tempData.Search.filter(Boolean);
             cleanedData = data.Search.filter(Boolean);
 
             if(cleanedData.length < 4) {
                 return autoSearch();
             }
 
-
-// WORK ON THIS NEXT
             for(let x = 0; x < 4; x++){
                 if(cleanedData[x].Poster === "N/A"){
                     cleanedData[x].Poster = "http://www.downloadclipart.net/medium/18548-penta-star-clip-art.png"; //stock image
-                } else {
-                    ctrl.suggestions.push(cleanedData[x]);
-                    if(ctrl.suggestions.length >= 3) {
-                        x = 4;
-                    }
+                }
+                ctrl.suggestions.push(cleanedData[x]);
+                if(ctrl.suggestions.length >= 3) {
+                    x = 4;
                 }
             }
             console.log(cleanedData);
