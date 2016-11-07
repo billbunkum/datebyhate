@@ -81,8 +81,16 @@
             </div>
         </form>
 
+<!-- My Angst -->
     <div class="row">
+        <hate-page 
+            ng-show="interestPageCtrl.myAngst"
+            hates="interestPageCtrl.displayMyHates" 
+        >
+        </hate-page>
+    </div>
 
+    <div class="row">
         <form ng-show="interestPageCtrl.suggestions">
         <h3>Suggested films to Hate</h3>
             <div class="form-group">
@@ -125,15 +133,6 @@
                 </p>
             </div>
         </form>
-    </div>
-
-<!-- My Angst -->
-    <div class="row">
-        <hate-page 
-            ng-show="interestPageCtrl.myAngst"
-            hates="interestPageCtrl.displayMyHates" 
-        >
-        </hate-page>
     </div>
 
 <!-- hate buddies angst -->

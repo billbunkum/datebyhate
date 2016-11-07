@@ -10,6 +10,7 @@
                 >
                     <img 
                         ng-src="{{ hate.film.url }}" 
+                        id="my-hates"
                     /><br />
                     <panel>
                         {{ hate.film.title }}
@@ -19,7 +20,10 @@
                     <panel id="date">
                         {{ hate.date |date: medium : 'EST' }}
                     </panel><br />
-
+                    
+                    <panel id="hated-text">
+                        HATED!
+                    </panel>
                 </a>
             </span>
         </div>

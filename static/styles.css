@@ -20,6 +20,20 @@ a.thumbnail {
     color: black;
 }
 
+#my-hates {
+    margin: 10px;
+    height: 280px;
+    max-width: 200px;
+    max-height: 280px;
+}
+
+#hate-buddies {
+    margin: 10px;
+    height: 280px;
+    max-width: 200px;
+    max-height: 280px;
+}
+
 #suggestion-search {
     margin: 10px;
     height: 280px;
@@ -31,4 +45,11 @@ a.thumbnail {
     margin: 10px;
     max-width: 260px;
     max-height: 300px;
+}
+
+#hated-text {
+    font-family: 'Finger Paint', cursive;
+    color: #D46A6A;
+    font-size: 22px;
+    margin-left: 15px;
 }

@@ -47,6 +47,7 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
     }
 
     function autoSearch() {
+        ctrl.myAngst = false;
         ctrl.filmCount = 0;
         ctrl.suggestions = [];
         getRandomLetter();
