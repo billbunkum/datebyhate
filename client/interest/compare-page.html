@@ -34,8 +34,52 @@
                     Get Social
                 </button>
                 <p></p>
+<!-- modals for viewing hate buddies' angst -->
+
+<!-- Button trigger modal -->
+<button 
+    type="button" 
+    class="btn btn-primary" 
+    data-toggle="modal" 
+    data-target="#myModal"
+    ng-click="comparePageCtrl.getBuddyAngst({hateBuddyID: other.hateBuddy.userID})"
+>
+  View Angst
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">{{other.hateBuddy.username}}'s Angst</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+            <div ng-repeat="angst in comparePageCtrl.othersAngst |unique: 'title'">
+                <div class="col-md-4">
+                    <div class="mini-angst">
+                        <img 
+                            ng-src="{{ angst.url }}" 
+                            id="modal-image" 
+                            title="{{ angst.title }}"
+                        /><br />
+                        <p></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- end modal -->
             </a>
         </span>
     </div>
 </form>
-
