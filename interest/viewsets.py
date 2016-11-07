@@ -30,3 +30,7 @@ class CurrentUserDetails(RetrieveAPIView):
 
     def get_object(self):
         return self.request.user
+
+class GetHateBuddiesAngst(viewsets.ModelViewSet):
+    queryset = request.user.interest_set.all()
+    serializer_class = UserSerializer
