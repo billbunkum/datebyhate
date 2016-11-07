@@ -73,7 +73,7 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
                     x = 4;
                 }
             }
-            console.log(cleanedData);
+            // console.log(cleanedData);
         });
 
     } // END autoSearch
@@ -126,7 +126,7 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
                 for (let x = 0; x < ctrl.hateBall.results.length; x++) {
                     ctrl.allHate.push(ctrl.hateBall.results[x]);
                 }
-            // console.log(ctrl.allHate);
+                console.log(ctrl.allHate.length);
                 getMyAngst();
             }
         );
@@ -135,11 +135,12 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
 //  filters 'ctrl.allHate' into 'ctrl.allMyHates'
     function getMyAngst() {
         for (let x = 0; x < ctrl.allHate.length; x++) {
-            if (ctrl.allHate[x].user === ctrl.user.id) {
+            if (ctrl.allHate[x].user == ctrl.user.id) {
                 ctrl.allMyHates.push(ctrl.allHate[x]);
             }
         }
         ctrl.displayMyHates = ctrl.allMyHates;
+        console.log(ctrl.allHate.length);
         displayMyAngst();
         compareAngst();
     } // END getMyAngst
@@ -190,6 +191,10 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
         }
     }
 
+    function getSocialLink() {
+        // need a userAPIService to grab results.email from /api/users
+    }
+
 // gets current user at /me
     function getMe() {
         meService.me().then( (me) => {
@@ -214,6 +219,7 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
     ctrl.compareAngst = compareAngst; // uses 'ctrl.allMyHates' & 'ctrl.allHate' to populate 'ctrl.othersWithMe'
     ctrl.clearData = clearData; // stopping aggregate 'push'to interval functions
     ctrl.displayMyAngst = displayMyAngst; // uses ctrl.displayMyAngst to render to html
+    ctrl.getSocialLink = getSocialLink;
 }; // END interestPageController
 
 export default interestPageController;

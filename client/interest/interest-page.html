@@ -48,7 +48,7 @@
                     <img 
                         ng-show="interestPageCtrl.films.Poster"
                         ng-src="{{ interestPageCtrl.films.Poster }}" 
-                        width="200px" 
+                        width="180px" 
                     /><br />
                     <label for="title">Title</label>
                     <panel id="title">
@@ -73,7 +73,7 @@
                 </a>
                 <button 
                     type="submit" 
-                    class="btn btn-default" 
+                    class="btn btn-danger btn-lg" 
                     ng-click="interestPageCtrl.addInterest(interestPageCtrl.films)"
                 >
                     Hate it
@@ -92,7 +92,7 @@
                                 <img 
                                     ng-src="{{ suggestion.Poster }}" alt="No Poster Available"
                                     height="220px"
-                                    width="200px" 
+                                    width="180px" 
                                 />
                             </panel><br />
 
@@ -112,7 +112,7 @@
                             </panel><br />
                             <button 
                                 type="submit" 
-                                class="btn btn-default" 
+                                class="btn btn-danger" 
                                 ng-click="interestPageCtrl.addInterest(suggestion)"
                             >
                                 Hate it
@@ -124,6 +124,7 @@
         </form>
     </div>
 
+<!-- My Angst -->
     <div class="row">
         <hate-page 
             ng-show="interestPageCtrl.myAngst"
@@ -132,7 +133,7 @@
         </hate-page>
     </div>
 
-
+<!-- hate buddies angst -->
     <div class="row">
         <compare-page
             others="interestPageCtrl.othersWithMe"

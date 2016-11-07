@@ -82,7 +82,9 @@ DATABASES = {
 }
 
 REST_FRAMEWORK = {
-    'PAGE_SIZE': 25,
+    # 'DEFAULT_PAGINATION_CLASS': None,
+    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 3000,
 }
 
 
