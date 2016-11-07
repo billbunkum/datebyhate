@@ -35,7 +35,7 @@ function flashesService($timeout) {
             // Finds the flash and removes it from the array of flashes
             const index = flashes.indexOf(flash);
             flashes.splice(index, 1);
-        }, 3000);
+        }, 8000);
     }
 
 

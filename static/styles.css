@@ -20,6 +20,8 @@ a.thumbnail {
     color: black;
     width: 220px;
     height: 450px;
+    line-height: 14px;
+    text-align: center;
 }
 
 #my-hates {

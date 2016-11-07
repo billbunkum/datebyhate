@@ -112,21 +112,26 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
                 };
                // console.log(returnData);
 
-//  could REFACTOR into 'addFilm()'' and call 'addInterests()'' within
-                interestAPIService.createInterests.save(ctrl.interest).$promise.then(
-                    (data) => {
-                            // console.log(data);
-                            ctrl.interestsHistory = [
-                                data,
-                                ...ctrl.interestsHistory,
+            interestAPIService.createInterests.save(ctrl.interest).$promise.then(
+                (data) => {
+                        // console.log(data);
+                        ctrl.interestsHistory = [
+                            data,
+                            ...ctrl.interestsHistory,
 // '...'' is an ES6 'spread operator'; takes every item in spread array 
 //'...ctrl.interests' and pastes into parent array 'ctrl.interests'
-                            ];
-                    // console.log(ctrl.interestsHistory);
-                    console.log(data);
-                    flashesService.displayMessage('Hated', 'success');
+                        ];
+                // console.log(ctrl.interestsHistory);
+                    if(ctrl.interestsHistory.length >= 8){
+                        flashesService.displayMessage('Your path to the darkside is nearly complete', 'danger');
+                    } 
+                    if(ctrl.interestsHistory.length < 8 && ctrl.interestsHistory.length >= 4) {
+                        flashesService.displayMessage('YES, gooood. Feed your anger!!', 'warning');
+                    } else {
+                        flashesService.displayMessage('HATED! Excellent!', 'success');
                     }
-                );
+                }
+            );
         });
     } // END addInterest
 
