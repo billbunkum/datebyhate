@@ -6,11 +6,13 @@
     >
         <span class="col-md-4">
             <a 
-                href="#" 
                 class="thumbnail"
             >
                 <label for="username">Hate buddy:</label>
-                    <span id="username">
+                    <span 
+                        id="username"
+                        ng-click="comparePageCtrl.getBuddySocial(other.hateBuddy.id)"
+                    >
                         {{ other.hateBuddy.username }}
                     </span><br />
                 <label for="title">Title:</label>

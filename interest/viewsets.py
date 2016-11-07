@@ -32,5 +32,8 @@ class CurrentUserDetails(RetrieveAPIView):
         return self.request.user
 
 class GetHateBuddiesAngst(viewsets.ModelViewSet):
-    queryset = request.user.interest_set.all()
+    queryset = User.objects.all()
     serializer_class = UserSerializer
+
+    def get_others_angst(self):
+        return self.request.user.interest_set.all()

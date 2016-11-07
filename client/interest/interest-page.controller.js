@@ -1,6 +1,6 @@
 //replace SNAKE CASE w/ CAMEL CASE
 
-function interestPageController(omdbAPI, interestAPIService, filmAPIService, meService, $interval) {
+function interestPageController(omdbAPI, interestAPIService, filmAPIService, meService, hateBuddiesAngstService, $interval) {
     const ctrl = this;
     ctrl.searchHistory = []; //a SESSION array of all data returned from omdbapi
     ctrl.films = null; //objects of data returned from omdbapi
@@ -11,6 +11,9 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
     ctrl.displayMyHates = []; // used to display My Angst on the page (not for calcs in controller)
     ctrl.myAngst = false; // reveals myAngst in DOM
     ctrl.suggestions = false; // used to toggle singular search & suggestions
+
+    ctrl.buddySocial = null;
+    ctrl.buddyIDs = []; // getSocialLink
 
     function showMyAngst() {
         ctrl.myAngst = ctrl.myAngst ? false: true;
@@ -126,7 +129,7 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
                 for (let x = 0; x < ctrl.hateBall.results.length; x++) {
                     ctrl.allHate.push(ctrl.hateBall.results[x]);
                 }
-                console.log(ctrl.allHate.length);
+
                 getMyAngst();
             }
         );
@@ -140,7 +143,7 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
             }
         }
         ctrl.displayMyHates = ctrl.allMyHates;
-        console.log(ctrl.allHate.length);
+
         displayMyAngst();
         compareAngst();
     } // END getMyAngst
@@ -191,8 +194,23 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
         }
     }
 
-    function getSocialLink() {
-        // need a userAPIService to grab results.email from /api/users
+// gets hate buddy's e-mail
+    function getSocialLink(hateBuddyID) {
+        // results.username
+        // results.id
+        hateBuddiesAngstService.buddies.get(hateBuddyID) //other.id
+        .$promise.then((data) => {
+            // for(let x = 0; x < data.results.length; x++) {
+            //     ctrl.buddyIDs.push(data.results[x].id);
+            // }
+            
+        console.log(data);
+        // interestAPIService.interests.get(ctrl.buddy)
+        });
+    }
+
+    function getOthersAngst() {
+
     }
 
 // gets current user at /me
@@ -220,6 +238,7 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
     ctrl.clearData = clearData; // stopping aggregate 'push'to interval functions
     ctrl.displayMyAngst = displayMyAngst; // uses ctrl.displayMyAngst to render to html
     ctrl.getSocialLink = getSocialLink;
+    ctrl.getOthersAngst = getOthersAngst;
 }; // END interestPageController
 
 export default interestPageController;

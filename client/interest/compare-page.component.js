@@ -5,6 +5,8 @@ const comparePageComponent = {
     template: template,
     bindings: {
         others: '<',
+        buddySocial: '<',
+        getBuddySocial: '&',
         update: '&',
     },
     controller: comparePageController,

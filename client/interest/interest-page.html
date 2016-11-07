@@ -1,5 +1,8 @@
 <!-- interestPageCtrl -->
 <div class="row">
+    <button ng-click="interestPageCtrl.getSocialLink()">
+        click me
+    </button>
     <div class="col-md-12">
         <button 
             ng-click="interestPageCtrl.showMyAngst()"
@@ -137,6 +140,8 @@
     <div class="row">
         <compare-page
             others="interestPageCtrl.othersWithMe"
+            buddySocial="interestPageCtrl.buddySocial"
+            getBuddySocial="interestPageCtrl.getSocialLink()"
             update="interestPageCtrl.displayHateBuddies()"
         >
         </compare-page>
