@@ -1,12 +1,17 @@
 <form>
 <h3>My <em>Angst</em></h3>
-    <div class="form-group">
+    <div 
+        class="form-group">
         <div ng-repeat="hate in hatePageCtrl.hates | unique:'film.title' track by $index">
             <span class="col-md-4">
                 <a 
                     href="#"
                     class="thumbnail"
                 >
+                    <img 
+                        id="my-hate"
+                        ng-src="{{ hate.film.url }}" 
+                    /><br />
                     <panel>
                         {{ hate.film.title }}
                     </panel><br />
@@ -16,11 +21,6 @@
                         {{ hate.date |date: medium : 'EST' }}
                     </panel><br />
 
-                    <img 
-                        ng-src="{{ hate.film.url }}" 
-                        height="110px"
-                        width="100px"
-                    /><br />
                 </a>
             </span>
         </div>

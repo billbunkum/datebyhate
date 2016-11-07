@@ -4,27 +4,35 @@
     <div 
         ng-repeat="other in comparePageCtrl.others |unique:'hateBuddy.username'"
     >
-        <span class="col-md-4">
+        <span class="col-md-3">
             <a 
                 class="thumbnail"
             >
                 <label for="username">Hate buddy:</label>
                     <span 
                         id="username"
-                        ng-click="comparePageCtrl.getBuddySocial(other.hateBuddy.id)"
                     >
                         {{ other.hateBuddy.username }}
                     </span><br />
+
                 <label for="title">Title:</label>
                     <panel id="title">
                         {{ other.hateBuddy.title }}
                     </panel><br />
                 <img 
                     ng-src="{{ other.hateBuddy.url }}" 
-                    height="110px"
-                    width="100px" 
                     alt="No poster" 
-                /><p />
+                /><br />
+
+                <button 
+                    type="submit"
+                    ng-click="comparePageCtrl.getBuddySocial()"
+                    class="btn btn-warning"
+                >
+<!-- {hateBuddyID: other.hateBuddy.userID} -->
+                    Get Social
+                </button>
+                <p></p>
             </a>
         </span>
     </div>

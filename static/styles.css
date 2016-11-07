@@ -6,3 +6,26 @@ ul {
     text-decoration: none;
     list-style-type: none;
 }
+
+a.thumbnail {
+    text-decoration: none;
+    color: black;
+}
+
+img {
+    margin: 10px;
+    max-width: 110px;
+    max-height: 130px;
+}
+
+img#suggestions {
+    margin: 10px;
+    width: 120px;
+    height: 180px;
+}
+
+img#my-hate {
+    margin: 10px;
+    width: 100px;
+    height: 130px;
+}

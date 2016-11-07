@@ -1,8 +1,5 @@
 <!-- interestPageCtrl -->
 <div class="row">
-    <button ng-click="interestPageCtrl.getSocialLink()">
-        click me
-    </button>
     <div class="col-md-12">
         <button 
             ng-click="interestPageCtrl.showMyAngst()"
@@ -90,12 +87,15 @@
             <div class="form-group">
                 <p ng-repeat="suggestion in interestPageCtrl.suggestions track by $index">
                     <span class="col-md-3">
-                        <a href="#" class="thumbnail">
+                        <a 
+                            href="#" 
+                            class="thumbnail"
+                        >
                             <panel>
                                 <img 
-                                    ng-src="{{ suggestion.Poster }}" alt="No Poster Available"
-                                    height="220px"
-                                    width="180px" 
+                                    ng-src="{{ suggestion.Poster }}" 
+                                    alt="No Poster Available"
+                                    id="suggestions" 
                                 />
                             </panel><br />
 
@@ -142,7 +142,6 @@
             others="interestPageCtrl.othersWithMe"
             buddySocial="interestPageCtrl.buddySocial"
             getBuddySocial="interestPageCtrl.getSocialLink()"
-            update="interestPageCtrl.displayHateBuddies()"
         >
         </compare-page>
     </div>

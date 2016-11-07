@@ -194,21 +194,21 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
         }
     }
 
-// gets hate buddy's e-mail
-    function getSocialLink(hateBuddyID) {
-        // results.username
-        // results.id
-        hateBuddiesAngstService.buddies.get(hateBuddyID) //other.id
-        .$promise.then((data) => {
-            // for(let x = 0; x < data.results.length; x++) {
-            //     ctrl.buddyIDs.push(data.results[x].id);
-            // }
-            
-        console.log(data);
-        // interestAPIService.interests.get(ctrl.buddy)
-        });
+// gets hate buddy's e-mail w/ hateBuddyID
+    function getSocialLink() {
+        // let idObject = {
+        //    id: hateBuddyID,
+        // };
+        alert('working');
+        // console.log(hateBuddyID);
+
+        // hateBuddiesAngstService.buddies.get() 
+        // .$promise.then((data) => {
+        // console.log(data);
+        // });
     }
 
+// uses 'ctrl.buddySocial'
     function getOthersAngst() {
 
     }
