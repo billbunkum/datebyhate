@@ -10,7 +10,8 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
     ctrl.allHate = []; // all every hates; used within getAllHate
     ctrl.displayMyHates = []; // used to display My Angst on the page (not for calcs in controller)
     ctrl.myAngst = false; // reveals myAngst in DOM
-    ctrl.suggestions = false; // used to toggle singular search & suggestions
+    ctrl.showSingle = false;
+    ctrl.showSuggested = false; // used to toggle singular search & suggestions
 
     ctrl.buddySocial = null;
     ctrl.buddyIDs = []; // getSocialLink
@@ -20,7 +21,7 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
     }
 
     function searchFilms() {
-        ctrl.suggestions = false; //for suggestion / single search toggle
+        ctrl.showSuggested = false; //for suggestion / single search toggle
         omdbAPI.get({
             t: ctrl.search_capture
         })
@@ -28,6 +29,7 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
             ctrl.films = data;
             ctrl.searchHistory.push(data);
             // console.log(data);
+            ctrl.showSingle = true;
         });
 
     } // END searchFilms
@@ -47,6 +49,8 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
     }
 
     function autoSearch() {
+        ctrl.showSingle = false;
+        ctrl.loading = true;
         ctrl.myAngst = false;
         ctrl.filmCount = 0;
         ctrl.suggestions = [];
@@ -78,6 +82,8 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
                 }
             }
             // console.log(cleanedData);
+            ctrl.loading = false;
+            ctrl.showSuggested = true;
         });
 
     } // END autoSearch
@@ -230,7 +236,7 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
 // PAGE LOAD functions
     getMe();
     getAllHate();//calls getMyAngst() w/in 'then clause'
-    // $interval(getAllHate, 5000);
+    $interval(getAllHate, 5000);
 
 //  functions
     ctrl.showMyAngst = showMyAngst;
