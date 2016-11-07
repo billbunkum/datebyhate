@@ -18,13 +18,15 @@ ul {
 a.thumbnail {
     text-decoration: none;
     color: black;
+    width: 220px;
+    height: 450px;
 }
 
 #my-hates {
     margin: 10px;
-    height: 280px;
+    height: 260px;
     max-width: 200px;
-    max-height: 280px;
+    max-height: 240px;
 }
 
 #hate-buddies {
@@ -50,6 +52,6 @@ a.thumbnail {
 #hated-text {
     font-family: 'Finger Paint', cursive;
     color: #D46A6A;
-    font-size: 22px;
+    font-size: 20px;
     margin-left: 15px;
 }

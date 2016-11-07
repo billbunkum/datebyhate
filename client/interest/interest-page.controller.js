@@ -1,6 +1,6 @@
 //replace SNAKE CASE w/ CAMEL CASE
 
-function interestPageController(omdbAPI, interestAPIService, filmAPIService, meService, hateBuddiesAngstService, $interval) {
+function interestPageController(omdbAPI, interestAPIService, filmAPIService, meService, hateBuddiesAngstService, $interval, flashesService) {
     const ctrl = this;
     ctrl.searchHistory = []; //a SESSION array of all data returned from omdbapi
     ctrl.films = null; //objects of data returned from omdbapi
@@ -21,6 +21,7 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
     }
 
     function searchFilms() {
+        ctrl.loading = true; // toggles fa-spinner
         ctrl.showSuggested = false; //for suggestion / single search toggle
         omdbAPI.get({
             t: ctrl.search_capture
@@ -30,6 +31,7 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
             ctrl.searchHistory.push(data);
             // console.log(data);
             ctrl.showSingle = true;
+            ctrl.loading = false;
         });
 
     } // END searchFilms
@@ -122,7 +124,7 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
                             ];
                     // console.log(ctrl.interestsHistory);
                     console.log(data);
-                    alert('Hated!');
+                    flashesService.displayMessage('Hated', 'success');
                     }
                 );
         });
@@ -197,7 +199,7 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
                 // console.log(ctrl.displayMyHates);
             });
         } else {
-            alert('No films hated. Search for a film or get some suggestions and START HATING!');
+            flashesService.displayMessage('No films hated. Search for a film or get some suggestions and START HATING!', 'warning');
         }
     }
 
@@ -213,9 +215,9 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
                 }
             }
             if(hateBuddySocial === ""){
-                alert('Your buddy has no contact info!');
+                flashesService.displayMessage('Your buddy has no contact info!', 'info');
             } else {
-                alert('Contact your Hate Buddy with: ' + hateBuddySocial);
+                flashesService.displayMessage('Contact your Hate Buddy with: ' + hateBuddySocial, 'success');
             }
         });
     }

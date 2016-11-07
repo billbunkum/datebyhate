@@ -10,8 +10,11 @@ import interestPageComponent from './interest-page.component';
 import hatePageComponent from './hate-page.component';
 import comparePageComponent from './compare-page.component';
 
+import FlashesModule from '../flashes/flashes.module';
+
 const interestModule = angular.module('interestMod', [
-        'ngResource'
+        'ngResource',
+        FlashesModule.name,
         ]
     )
     .config( 
