@@ -1,5 +1,13 @@
+/* #FFFBFB extremely light red */
+/* #FFE2E2 very light red */
+/* #FFAAAA light*/
+/* #D46A6A */
+/* #801515 dark*/
+/* #550000 darker */
+
 body {
     margin: 0 10px;
+    background-color: #FFFBFB;
 }
 
 ul {
@@ -12,20 +20,15 @@ a.thumbnail {
     color: black;
 }
 
-img {
+#suggestion-search {
     margin: 10px;
-    max-width: 110px;
-    max-height: 130px;
+    height: 280px;
+    max-width: 200px;
+    max-height: 280px;
 }
 
-img#suggestions {
+#single-search {
     margin: 10px;
-    width: 120px;
-    height: 180px;
-}
-
-img#my-hate {
-    margin: 10px;
-    width: 100px;
-    height: 130px;
+    max-width: 260px;
+    max-height: 300px;
 }

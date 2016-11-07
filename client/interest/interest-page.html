@@ -48,7 +48,7 @@
                     <img 
                         ng-show="interestPageCtrl.films.Poster"
                         ng-src="{{ interestPageCtrl.films.Poster }}" 
-                        width="180px" 
+                        id="single-search"
                     /><br />
                     <label for="title">Title</label>
                     <panel id="title">
@@ -82,6 +82,7 @@
         </form>
 
     <div class="row">
+
         <form ng-show="interestPageCtrl.suggestions">
         <h3>Suggested films to Hate</h3>
             <div class="form-group">
@@ -91,13 +92,12 @@
                             href="#" 
                             class="thumbnail"
                         >
-                            <panel>
-                                <img 
-                                    ng-src="{{ suggestion.Poster }}" 
-                                    alt="No Poster Available"
-                                    id="suggestions" 
-                                />
-                            </panel><br />
+
+                            <img 
+                                ng-src="{{ suggestion.Poster }}" 
+                                alt="No Poster Available"
+                                id="suggestion-search"
+                            /><br />
 
                             <label for="title">Title</label>
                             <panel id="title">

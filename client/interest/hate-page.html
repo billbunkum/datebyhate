@@ -1,15 +1,14 @@
 <form>
-<h3>My <em>Angst</em></h3>
+<h2>My <em>Angst</em></h2>
     <div 
         class="form-group">
         <div ng-repeat="hate in hatePageCtrl.hates | unique:'film.title' track by $index">
-            <span class="col-md-4">
+            <span class="col-md-3">
                 <a 
                     href="#"
                     class="thumbnail"
                 >
                     <img 
-                        id="my-hate"
                         ng-src="{{ hate.film.url }}" 
                     /><br />
                     <panel>
