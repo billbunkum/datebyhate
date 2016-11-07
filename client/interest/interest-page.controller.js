@@ -195,17 +195,22 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
     }
 
 // gets hate buddy's e-mail w/ hateBuddyID
-    function getSocialLink() {
-        // let idObject = {
-        //    id: hateBuddyID,
-        // };
-        alert('working');
-        // console.log(hateBuddyID);
+    function getSocialLink(hateBuddyID) {
+        let hateBuddySocial = "";
 
-        // hateBuddiesAngstService.buddies.get() 
-        // .$promise.then((data) => {
-        // console.log(data);
-        // });
+        hateBuddiesAngstService.buddies.get() 
+        .$promise.then((data) => {
+            for(let i = 0; i < data.results.length; i++){
+                if(data.results[i].id === hateBuddyID) {
+                    hateBuddySocial = data.results[i].email;
+                }
+            }
+            if(hateBuddySocial === ""){
+                alert('Your buddy has no contact info!');
+            } else {
+                alert('Contact your Hate Buddy with: ' + hateBuddySocial);
+            }
+        });
     }
 
 // uses 'ctrl.buddySocial'

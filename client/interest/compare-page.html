@@ -6,6 +6,7 @@
     >
         <span class="col-md-3">
             <a 
+                href="#"
                 class="thumbnail"
             >
                 <label for="username">Hate buddy:</label>
@@ -26,10 +27,9 @@
 
                 <button 
                     type="submit"
-                    ng-click="comparePageCtrl.getBuddySocial()"
+                    ng-click="comparePageCtrl.getBuddySocial({hateBuddyID: other.hateBuddy.userID})"
                     class="btn btn-warning"
                 >
-<!-- {hateBuddyID: other.hateBuddy.userID} -->
                     Get Social
                 </button>
                 <p></p>
@@ -37,3 +37,4 @@
         </span>
     </div>
 </form>
+
