@@ -24,17 +24,9 @@ a.thumbnail {
     text-align: center;
 }
 
-#modal-image {
-    line-height: 8px;
-    width: 60px;
-    height: 80px;
-    text-decoration: none;
-    color: black;
-}
-
-.mini-angst {
-    max-width: 150px;
-    max-height: 250px;
+img.modal-image {
+    width: 125px;
+    height: 180px;
 }
 
 #my-hates {
@@ -70,3 +62,4 @@ a.thumbnail {
     font-size: 20px;
     margin-left: 15px;
 }
+

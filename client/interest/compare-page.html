@@ -59,14 +59,11 @@
                         <div class="row">
                             <div ng-repeat="angst in comparePageCtrl.othersAngst |unique: 'title'">
                                 <div class="col-md-4">
-                                    <div class="mini-angst">
-                                        <img 
-                                            ng-src="{{ angst.url }}" 
-                                            id="modal-image" 
-                                            title="{{ angst.title }}"
-                                        /><br />
-                                        <p></p>
-                                    </div>
+                                    <img 
+                                        ng-src="{{ angst.url }}" 
+                                        class="modal-image" 
+                                        title="{{ angst.title }}"
+                                    /><p></p>
                                 </div>
                             </div>
                         </div>
