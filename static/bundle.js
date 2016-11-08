@@ -32998,6 +32998,9 @@
 	
 	    function showMyAngst() {
 	        ctrl.myAngst = ctrl.myAngst ? false : true;
+	        if (ctrl.myAngst = true) {
+	            getAllHate(); //repopulates myAngst on page w/o refresh
+	        }
 	    }
 	
 	    function searchFilms() {
@@ -33006,6 +33009,13 @@
 	        omdbAPI.get({
 	            t: ctrl.search_capture
 	        }).$promise.then(function (data) {
+	            if (data.Poster === "N/A") {
+	                data.Poster = "http://www.downloadclipart.net/medium/18548-penta-star-clip-art.png"; //stock image
+	            }
+	            if (data.Response == "False") {
+	                flashesService.displayMessage('Couldn\'t find that film! Try another.', 'danger');
+	            }
+	            // console.log(data);
 	            ctrl.films = data;
 	            ctrl.searchHistory.push(data);
 	            // console.log(data);
@@ -33286,7 +33296,7 @@
 /* 19 */
 /***/ function(module, exports) {
 
-	module.exports = "<form>\n<h2>My <em>Angst</em></h2>\n    <div \n        class=\"form-group\">\n        <div ng-repeat=\"hate in hatePageCtrl.hates | unique:'film.title' track by $index\">\n            <span class=\"col-md-3\">\n                <a \n                    href=\"#\"\n                    class=\"thumbnail\"\n                >\n                    <img \n                        ng-src=\"{{ hate.film.url }}\" \n                        id=\"my-hates\"\n                    /><br />\n                    <panel>\n                        {{ hate.film.title }}\n                    </panel><br />\n\n                    <label for=\"date\">Date Hated</label>\n                    <panel id=\"date\">\n                        {{ hate.date |date: medium : 'EST' }}\n                    </panel><br />\n                    \n                    <panel id=\"hated-text\">\n                        HATED!\n                    </panel>\n                </a>\n            </span>\n        </div>\n    </div>\n</form>"
+	module.exports = "<form>\n<h2>My <em>Angst</em></h2>\n    <div \n        class=\"form-group\"\n    >\n        <div ng-repeat=\"hate in hatePageCtrl.hates | unique:'film.title' track by $index\">\n            <span class=\"col-md-3\">\n                <a \n                    href=\"#\"\n                    class=\"thumbnail\"\n                    id=\"single-search\"\n                >\n                    <img \n                        ng-src=\"{{ hate.film.url }}\" \n                        id=\"my-hates\"\n                    /><br />\n                    <panel>\n                        {{ hate.film.title }}\n                    </panel><br />\n\n                    <label for=\"date\">Date Hated</label>\n                    <panel id=\"date\">\n                        {{ hate.date |date: medium : 'EST' }}\n                    </panel><br />\n                    \n                    <panel id=\"hated-text\">\n                        HATED!\n                    </panel>\n                </a>\n            </span>\n        </div>\n    </div>\n</form>"
 
 /***/ },
 /* 20 */

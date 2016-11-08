@@ -18,6 +18,9 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
 
     function showMyAngst() {
         ctrl.myAngst = ctrl.myAngst ? false: true;
+        if(ctrl.myAngst = true){
+            getAllHate(); //repopulates myAngst on page w/o refresh
+        }
     }
 
     function searchFilms() {
@@ -27,6 +30,13 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
             t: ctrl.search_capture
         })
         .$promise.then( (data) => {
+            if(data.Poster === "N/A"){
+                data.Poster = "http://www.downloadclipart.net/medium/18548-penta-star-clip-art.png"; //stock image
+            }
+            if(data.Response == "False"){
+                flashesService.displayMessage('Couldn\'t find that film! Try another.', 'danger');
+            }
+            // console.log(data);
             ctrl.films = data;
             ctrl.searchHistory.push(data);
             // console.log(data);

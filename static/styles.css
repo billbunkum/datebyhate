@@ -59,9 +59,10 @@ img.modal-image {
 
 #my-hates {
     margin: 10px;
-    height: 260px;
+    width: 200;
+    height: 300px;
     max-width: 200px;
-    max-height: 240px;
+    max-height: 360px;
 }
 
 #hate-buddies {
@@ -76,12 +77,6 @@ img.modal-image {
     height: 280px;
     max-width: 200px;
     max-height: 280px;
-}
-
-#single-search {
-    margin: 10px;
-    max-width: 260px;
-    max-height: 300px;
 }
 
 #hated-text {

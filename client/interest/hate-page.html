@@ -1,12 +1,14 @@
 <form>
 <h2>My <em>Angst</em></h2>
     <div 
-        class="form-group">
+        class="form-group"
+    >
         <div ng-repeat="hate in hatePageCtrl.hates | unique:'film.title' track by $index">
             <span class="col-md-3">
                 <a 
                     href="#"
                     class="thumbnail"
+                    id="single-search"
                 >
                     <img 
                         ng-src="{{ hate.film.url }}" 
