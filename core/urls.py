@@ -6,3 +6,5 @@ from . import views
 urlpatterns = [
     url(r'^$', login_required(views.IndexView.as_view()), name='index'),
 ]
+
+#login_required to get to 'index'
