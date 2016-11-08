@@ -2,44 +2,68 @@
 
 {% block content %}
 
-<h2>Login</h2>
+<div class="container">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
 
-    {% if form.errors %}
+        <h1>Welcome to Date By Hate
+            <p>
+            <small>
+                <p>
+                A novelty dating site which <em id="red">pairs people</em> according to which films and television series 
+                they<span id="hated-text">HATE</span>.
+                </p>
+                <p> 
+                Go ahead and login or register to start choosing films you really, <em>really hate</em> - we are sure you will find the <span id="red">'love'</span> of your life soon after!
+                </p>
+            </small>
+            </p>
+        </h1>
+
+    <hr id="red">
+    <h2>Login</h2>
+
+        {% if form.errors %}
+        {% endif %}
+
+    <form 
+        action="{% url 'accounts:login' %}"
+        method="POST"
+    >
+        {% csrf_token %}
+        {% for field in form %}
+            {% include "core/_form_input.html" %}
+        {% endfor %}
+
+        <input 
+            type="hidden"
+            name="next" value="{{next}}"
+        >
+        <button 
+            type="submit"
+            class="btn btn-danger btn-lg"
+        >
+            &nbsp;Confirm!&nbsp;
+        </button>
+    </form>
+
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li
+                    {% if message.tags %}
+                    class="{{message}}"
+                    {% endif %}
+                >
+                {{ message }}
+                </li>
+            {% endfor %}
+        </ul>
     {% endif %}
 
-<form 
-    action="{% url 'accounts:login' %}"
-    method="POST"
->
-    {% csrf_token %}
-    {% for field in form %}
-        {% include "core/_form_input.html" %}
-    {% endfor %}
-
-    <input 
-        type="hidden"
-        name="next" value="{{next}}"
-    >
-    <button 
-        type="submit"
-        class="btn btn-default"
-    >
-        Login
-    </button>
-</form>
-
-{% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-            <li
-                {% if message.tags %}
-                class="{{message}}"
-                {% endif %}
-            >
-            {{ message }}
-            </li>
-        {% endfor %}
-    </ul>
-{% endif %}
-
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+</div>
 {% endblock content %}

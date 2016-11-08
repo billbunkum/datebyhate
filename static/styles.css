@@ -1,13 +1,31 @@
 /* #FFFBFB extremely light red */
 /* #FFE2E2 very light red */
 /* #FFAAAA light*/
-/* #D46A6A */
+/* #D46A6A red */
 /* #801515 dark*/
 /* #550000 darker */
 
 body {
     margin: 0 10px;
     background-color: #FFFBFB;
+    font-family: 'Lora', serif;
+}
+
+h1, h2, h3 {
+    font-family: 'Coiny', cursive;
+}
+
+h3 {
+    color: #801515;
+}
+
+h1, h2 {
+    color: #D46A6A;
+}
+
+h1 small {
+    font-family: 'Open Sans Condensed', sans-serif;
+    color: #550000;
 }
 
 ul {
@@ -27,6 +45,11 @@ a.thumbnail {
 img.modal-image {
     width: 125px;
     height: 180px;
+}
+
+.jumbotron {
+    margin: 0 auto;
+    padding: 0;
 }
 
 #my-hates {
@@ -63,3 +86,22 @@ img.modal-image {
     margin-left: 15px;
 }
 
+hr {
+    border-color: #550000;
+}
+
+#red {
+    color: #D46A6A;
+}
+
+#dark-red {
+    color: #801515;
+}
+
+#darkest-red {
+    color: #550000;
+}
+
+#darkest-red-bg {
+    background-color: #550000;
+}
