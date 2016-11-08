@@ -5,9 +5,6 @@
 /* #801515 dark*/
 /* #550000 darker */
 
-@btnSuccessBackground: #550000;
-@btnSuccessBackgroundHighlight: #801515;
-
 body {
     margin: 0 10px;
     background-color: #FFFBFB;
