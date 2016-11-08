@@ -28,6 +28,11 @@ h1 small {
     color: #550000;
 }
 
+h2 small {
+    font-family: 'Open Sans Condensed', sans-serif;
+    color: #550000;
+}
+
 ul {
     text-decoration: none;
     list-style-type: none;

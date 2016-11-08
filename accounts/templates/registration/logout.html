@@ -2,18 +2,31 @@
 
 {% block page_content %}
 
-<h2>Lo, out ye art logged.</h2>
-
-    <form 
-        action="{% url 'accounts:login' %}"
-        method="POST"
-    >
-    {% csrf_token %}
-        <button 
-            type="submit"
-        >
-        Head Back
-        </button>
-    </form>
+<div class="container">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <h1>Farewell, lover...</h1><br />
+            <h2><small>
+                    Log back in to keep hating
+                </small>
+            </h2><br />
+                
+                <form 
+                    action="{% url 'accounts:login' %}"
+                    method="POST"
+                >
+                {% csrf_token %}
+                    <button 
+                        class="btn btn-danger btn-lg"
+                        type="submit"
+                    >
+                    <i class="fa fa-long-arrow-left" aria-hidden="true"></i> &nbsp;to Login
+                    </button>
+                </form>
+            </p>
+        <div class="col-md-2"></div>
+    </div>
+</div>
 
 {% endblock %}
