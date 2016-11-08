@@ -24,6 +24,11 @@ a.thumbnail {
     text-align: center;
 }
 
+img.modal-image {
+    width: 125px;
+    height: 180px;
+}
+
 #my-hates {
     margin: 10px;
     height: 260px;
@@ -57,3 +62,4 @@ a.thumbnail {
     font-size: 20px;
     margin-left: 15px;
 }
+

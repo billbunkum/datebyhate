@@ -4,8 +4,10 @@ import template from './compare-page.html';
 const comparePageComponent = {
     template: template,
     bindings: {
-        others: '<', // for for hate buddies
-        getBuddySocial: '&', //displays a specific hate buddy's angst
+        others: '<', // scalar for getBuddySocial
+        getBuddySocial: '&', //displays a specific hate buddy's social link (email)
+        othersAngst: '<', // scalar for getBuddyAngst
+        getBuddyAngst: '&', //displays a specific hate buddy's angst
     },
     controller: comparePageController,
     controllerAs: 'comparePageCtrl',

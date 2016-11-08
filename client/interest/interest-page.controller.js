@@ -228,8 +228,17 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
     }
 
 // uses 'ctrl.buddySocial'
-    function getOthersAngst() {
+    function getOthersAngst(hateBuddyID) {
+        ctrl.hateBuddyAngst = [];
 
+        interestAPIService.interests.get().$promise.then((data) => {
+            for(let i = 0; i < data.results.length; i++){
+                if(data.results[i].user === hateBuddyID){
+                    ctrl.hateBuddyAngst.push(data.results[i].film);
+                }
+            }
+
+        });
     }
 
 // gets current user at /me
@@ -243,7 +252,7 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
 // PAGE LOAD functions
     getMe();
     getAllHate();//calls getMyAngst() w/in 'then clause'
-    $interval(getAllHate, 5000);
+    // $interval(getAllHate, 5000);
 
 //  functions
     ctrl.showMyAngst = showMyAngst;
