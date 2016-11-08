@@ -5,14 +5,8 @@
 /* #801515 dark*/
 /* #550000 darker */
 
-@datebyhateDark: #550000;
-@datebyhateRed: #801515;
-.btn-datebyhate { .buttonBackground(@datebyhateRed, @datebyhateDark); }
-
-/*@btnInfoBackground: #D46A6A;
-@btnInfoBackgroundHighlight: #FFAAAA;
-*/
-
+@btnSuccessBackground: #550000;
+@btnSuccessBackgroundHighlight: #801515;
 
 body {
     margin: 0 10px;
