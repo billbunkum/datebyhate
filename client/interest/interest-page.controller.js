@@ -244,10 +244,12 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
         interestAPIService.interests.get().$promise.then((data) => {
             for(let i = 0; i < data.results.length; i++){
                 if(data.results[i].user === hateBuddyID){
-                    ctrl.hateBuddyAngst.push(data.results[i].film);
+                    let results = data.results[i].film;
+                    results.username = data.results[i].username;
+                    console.log(results);
+                    ctrl.hateBuddyAngst.push(results);
                 }
             }
-
         });
     }
 
@@ -262,6 +264,7 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
 // PAGE LOAD functions
     getMe();
     getAllHate();//calls getMyAngst() w/in 'then clause'
+    autoSearch();
     // $interval(getAllHate, 5000);
 
 //  functions
