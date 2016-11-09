@@ -20,6 +20,7 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
         ctrl.myAngst = ctrl.myAngst ? false: true;
         if(ctrl.myAngst = true){
             getAllHate(); //repopulates myAngst on page w/o refresh
+            // compareAngst(); // repopulates othersWithMe 'hate buddies list'
         }
     }
 
@@ -96,6 +97,7 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
             // console.log(cleanedData);
             ctrl.loading = false;
             ctrl.showSuggested = true;
+            // compareAngst();
         });
 
     } // END autoSearch

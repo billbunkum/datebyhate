@@ -1,8 +1,9 @@
 
 <h3>Your <em>Hate Buddies</em></h3>
 <form id="hate-buddy">
+ <!-- |unique:'hateBuddy.username' -->
     <div 
-        ng-repeat="other in comparePageCtrl.others |unique:'hateBuddy.username'"
+        ng-repeat="other in comparePageCtrl.others"
     >
         <span class="col-md-3">
             <a 
