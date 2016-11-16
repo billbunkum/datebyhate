@@ -18,7 +18,7 @@
 </div>
 <div class="row">
     <div class="col-md-12">
-        <form ng-click="interestPageCtrl.searchFilms()">
+        <form>
             <div class="form-group">
                 <label for="this">Search Films To Hate</label>
                 <input 
@@ -32,6 +32,7 @@
                 <button 
                     type="submit" 
                     class="btn btn-default" 
+                    ng-click="interestPageCtrl.searchFilms()"
                 >
                         Search by Title
                 </button>

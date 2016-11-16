@@ -34,7 +34,7 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
             if(data.Poster === "N/A"){
                 data.Poster = "http://www.downloadclipart.net/medium/18548-penta-star-clip-art.png"; //stock image
             }
-            if(data.Response == "False"){
+            if(data.Response === "False"){
                 flashesService.displayMessage('Couldn\'t find that film! Try another.', 'danger');
             }
             // console.log(data);

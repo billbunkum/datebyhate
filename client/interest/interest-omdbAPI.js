@@ -5,7 +5,7 @@ function omdbAPI($resource) {
     // };
 
     // return omdb;
-    return $resource("http://www.omdbapi.com/?");
+    return $resource("http://www.omdbapi.com/?&callback&");
 
 }
 
