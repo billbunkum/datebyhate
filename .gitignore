@@ -2,6 +2,8 @@
 __pycache__
 *.sqlite3
 db.sqlite3
+/conf/settings/local.py
+flixchill
 
 node_modules/
 npm-debug.log
