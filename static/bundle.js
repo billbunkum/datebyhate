@@ -32909,7 +32909,7 @@
 	    // };
 	
 	    // return omdb;
-	    return $resource("http://www.omdbapi.com/?&callback");
+	    return $resource("https://www.omdbapi.com/?");
 	}
 	
 	exports.default = omdbAPI;
@@ -32996,6 +32996,8 @@
 	    ctrl.buddySocial = null;
 	    ctrl.buddyIDs = []; // getSocialLink
 	
+	    ctrl.stockImage = "/static/penta-star.png";
+	
 	    function showMyAngst() {
 	        ctrl.myAngst = ctrl.myAngst ? false : true;
 	        if (ctrl.myAngst = true) {
@@ -33011,7 +33013,9 @@
 	            t: ctrl.search_capture
 	        }).$promise.then(function (data) {
 	            if (data.Poster === "N/A") {
-	                data.Poster = "http://www.downloadclipart.net/medium/18548-penta-star-clip-art.png"; //stock image
+	                //stock image url
+	                // data.Poster = "http://www.downloadclipart.net/medium/18548-penta-star-clip-art.png";
+	                data.Poster = ctrl.stockImage;
 	            }
 	            if (data.Response === "False") {
 	                flashesService.displayMessage('Couldn\'t find that film! Try another.', 'danger');
@@ -33064,7 +33068,9 @@
 	
 	            for (var x = 0; x < 4; x++) {
 	                if (cleanedData[x].Poster === "N/A") {
-	                    cleanedData[x].Poster = "http://www.downloadclipart.net/medium/18548-penta-star-clip-art.png"; //stock image
+	                    //stock image
+	                    // cleanedData[x].Poster = "http://www.downloadclipart.net/medium/18548-penta-star-clip-art.png";
+	                    cleanedData[x].Poster = ctrl.stockImage;
 	                }
 	                ctrl.suggestions.push(cleanedData[x]);
 	                if (ctrl.suggestions.length > 4) {

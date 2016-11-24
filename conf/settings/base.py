@@ -7,6 +7,10 @@ BASE_DIR = Path(__file__).ancestor(3)
 TEMPLATE_DIR = BASE_DIR.child("templates")
 STATIC_FILE_DIR = BASE_DIR.child("static")
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+#made up, maybe works
+MEDIA_FILE_DIR = BASE_DIR.child("media")
+MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
 #overrides automatic direct to /accounts/profile
 LOGIN_REDIRECT_URL = '/'
 # Quick-start development settings - unsuitable for production
