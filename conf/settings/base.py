@@ -23,6 +23,8 @@ SECRET_KEY = os.environ['SECRET_KEY']
 # SECURITY WARNING: don't run with debug turned on in production!
 ALLOWED_HOSTS = []
 
+#django-registration for e-mail verification
+ACCOUNT_ACTIVATION_DAYS = 1
 
 # Application definition
 
