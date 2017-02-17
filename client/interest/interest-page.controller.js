@@ -18,6 +18,8 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
 
     ctrl.stockImage = "/static/penta-star.png";
 
+    ctrl.filmAlreadyHated = false; // for single search, turns 'hate it' button to 'already hated' button
+
     function showMyAngst() {
         ctrl.myAngst = ctrl.myAngst ? false: true;
         if(ctrl.myAngst = true){
@@ -218,11 +220,12 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
         if(ctrl.displayMyHates.length > 0){
             filmAPIService.films.get(ctrl.displayMyHates[0].user)
             .$promise.then( (data) => {
-                // console.log(data);
+                console.log(data);
                 // console.log(ctrl.displayMyHates);
             });
-        } else {
+        } else if (ctrl.displayMyHates.length == 0) {
             flashesService.displayMessage('No films hated. Search for a film or get some suggestions and START HATING!', 'warning');
+            console.log("number of hates is " + ctrl.displayMyHates.length);
         }
     }
 
