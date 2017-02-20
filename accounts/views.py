@@ -24,3 +24,6 @@ def register(request):
     }
 
     return render(request, "accounts/register.html", context)
+
+def verify():
+    pass
