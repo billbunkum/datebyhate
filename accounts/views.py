@@ -18,8 +18,8 @@ def register(request):
             messages.success(request, 'Congrats! You now exist.')
 
             #heading to accounts.urls for 'login' endpoint
-            # return redirect('accounts:login')
-            return redirect('accounts:verification')
+            return redirect('accounts:login')
+            # return redirect('accounts:verification')
     else:
         form = UserRegistrationForm
 
