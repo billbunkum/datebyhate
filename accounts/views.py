@@ -3,6 +3,8 @@ from django.contrib import messages
 # from django.contrib.auth import 
 from .forms import UserRegistrationForm
 
+from django.template import RequestContext
+
 def register(request):
     if request.method == "POST":
         form = UserRegistrationForm(request.POST)
@@ -16,7 +18,8 @@ def register(request):
             messages.success(request, 'Congrats! You now exist.')
 
             #heading to accounts.urls for 'login' endpoint
-            return redirect('accounts:login')
+            # return redirect('accounts:login')
+            return redirect('accounts:verification')
     else:
         form = UserRegistrationForm
 
