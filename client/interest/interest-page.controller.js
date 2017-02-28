@@ -91,24 +91,40 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
                 return autoSearch();
             }
 
-            for(let x = 0; x < 4; x++){
-                if(cleanedData[x].Poster === "N/A"){
-                    //stock image
-                    // cleanedData[x].Poster = "http://www.downloadclipart.net/medium/18548-penta-star-clip-art.png";
-                    cleanedData[x].Poster = ctrl.stockImage;
-                }
-                ctrl.suggestions.push(cleanedData[x]);
-                if(ctrl.suggestions.length > 4) {
-                    x = 4;
-                }
-            }
+// NEEDS TESTING
+            addPoster(cleanedData, ctrl.suggestions);
+            // for(let x = 0; x < 4; x++){
+            //     if(cleanedData[x].Poster === "N/A"){
+            //         //stock image
+            //         // cleanedData[x].Poster = "http://www.downloadclipart.net/medium/18548-penta-star-clip-art.png";
+            //         cleanedData[x].Poster = ctrl.stockImage;
+            //     }
+            //     ctrl.suggestions.push(cleanedData[x]);
+            //     if(ctrl.suggestions.length > 4) {
+            //         x = 4;
+            //     }
+            // }
             // console.log(cleanedData);
+
             ctrl.loading = false;
             ctrl.showSuggested = true;
             // compareAngst();
         });
 
     } // END autoSearch
+
+// checks foo.Poster for image, if none, replaces with ctrl.stockImage
+    function addPoster(cleanedData, suggestions) {
+        for(let x = 0; x < 4; x++){
+            if(cleanedData[x].Poster === "N/A"){
+                cleanedData[x].Poster = ctrl.stockImage;
+            }
+            ctrl.suggestions.push(cleanedData[x]);
+            if(ctrl.suggestions.length > 4){
+                x = 4;
+            }
+        }
+    }
 
     function addInterest(savedInterest) { 
 //ACTIVATES w/ HATE IT button; savedInterest -> ctrl.films -> interestPageCtrl.films
@@ -283,6 +299,7 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
     ctrl.searchFilms = searchFilms;
     ctrl.getRandomLetter = getRandomLetter;
     ctrl.autoSearch = autoSearch; // auto populates w/o need for active search
+    ctrl.addPoster = addPoster; // checks to see if Poster exists; adds ctrl.stockImage
     ctrl.addInterest = addInterest;
     ctrl.getAllHate = getAllHate; //gathers all 'interests/hates' into 'ctrl.hateBall'
     ctrl.getMyAngst = getMyAngst; //pulls 'my angst' from 'ctrl.hateBall'
