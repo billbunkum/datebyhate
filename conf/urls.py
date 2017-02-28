@@ -13,14 +13,14 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-# from registration.backends.hmac.urls import RegistrationView
+from registraion.backends.hmac.urls import RegistrationView
 # from registration.forms import RegistrationFormTermsOfService
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^api/', include('api.urls', namespace='api')),
 #   there is no 'namespace' for api in sups board
-    url(r'^accounts/', include('registration.backends.hmac.urls')),
-    url(r'^verify/', include('accounts.urls', namespace='accounts')),
+    url(r'^verify/', include('registration.backends.hmac.urls')),
+    url(r'^accounts/', include('accounts.urls', namespace='accounts')),
     url(r'^', include('core.urls', namespace='core')),
 ]
