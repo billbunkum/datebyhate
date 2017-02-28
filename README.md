@@ -29,6 +29,10 @@ Add the following to .gitignore:
 ### Remember:
 python dependencies
 
++Install and setup Jasmine for testing
++[Jasmine setup](https://github.com/jasmine/jasmine-py)
++[Jasmine docs](https://jasmine.github.io/)
+
 node dependencies
 
 migrate to create initial db
