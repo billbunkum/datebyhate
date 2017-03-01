@@ -19,8 +19,7 @@ from registraion.backends.hmac.urls import RegistrationView
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^api/', include('api.urls', namespace='api')),
-#   there is no 'namespace' for api in sups board
-    url(r'^verify/', include('registration.backends.hmac.urls')),
+    # url(r'^verify/', include('registration.backends.hmac.urls', { '': }, name="registrationForm")),
     url(r'^accounts/', include('accounts.urls', namespace='accounts')),
     url(r'^', include('core.urls', namespace='core')),
 ]

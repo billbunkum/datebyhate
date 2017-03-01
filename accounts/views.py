@@ -1,13 +1,14 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-# from django.contrib.auth import 
-from .forms import UserRegistrationForm
 
-from django.template import RequestContext
+# from .forms import UserRegistrationForm
+from .forms import RegistrationForm
+# from django.template import RequestContext
 
 def register(request):
     if request.method == "POST":
-        form = UserRegistrationForm(request.POST)
+        form = RegistrationForm(request.POST)
+        # form = UserRegistrationForm(request.POST)
 
         if form.is_valid():
             new_user = form.save(commit=False)
@@ -19,15 +20,13 @@ def register(request):
 
             #heading to accounts.urls for 'login' endpoint
             return redirect('accounts:login')
-            # return redirect('accounts:verification')
+
     else:
-        form = UserRegistrationForm
+        form = RegistrationForm
+        # form = UserRegistrationForm
 
     context = {
         "form": form,
     }
 
     return render(request, "accounts/register.html", context)
-
-def verify():
-    pass
