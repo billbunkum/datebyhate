@@ -11,9 +11,9 @@
                     Log back in to keep hating
                 </small>
             </h2><br />
-                
+<!-- was 'accounts:login' -->
                 <form 
-                    action="{% url 'accounts:login' %}"
+                    action="{% url 'accounts:auth_login' %}"
                     method="POST"
                 >
                 {% csrf_token %}

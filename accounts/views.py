@@ -18,8 +18,9 @@ def register(request):
 
             messages.success(request, 'Congrats! You now exist.')
 
+            return render(request, "registration/registration_complete.html")
             #heading to accounts.urls for 'login' endpoint
-            return redirect('accounts:login')
+            # return redirect('accounts:login')
 
     else:
         form = RegistrationForm
@@ -29,4 +30,12 @@ def register(request):
         "form": form,
     }
 
-    return render(request, "accounts/register.html", context)
+    return render(request, "registration/register_form.html", context)
+    # return render(request, "accounts/register.html", context)
+
+def activate(request):
+    context = {
+        "activation_key": activation_key,
+    }
+    return render(request, "registration/activate.html", context)
+

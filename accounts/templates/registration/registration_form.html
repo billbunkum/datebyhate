@@ -2,4 +2,57 @@
 
 {% block content %}
 
+{% extends "core/base.html" %}
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <h1>
+                Register<br />
+                <small>Fill out each field in the form below.</small><br />
+                <small><em>Remember</em>, you need a <span id="red">valid e-mail</span> to connect with others</small>
+            </h1>
+            <hr>
+            <form 
+                action="{% url 'accounts:register' %}"
+                method="POST"
+            >
+                {% csrf_token %}
+                {% for field in form %}
+                    {% include "core/_form_input.html" %}
+                {% endfor %}
+
+                <input 
+                    type="hidden"
+                    name="next"
+                    value="{{next}}"
+                >
+                <button 
+                    type="submit"
+                    class="btn btn-danger btn-lg">Register!</button>
+            </form>
+
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li
+                            {% if message.tags %}
+                            class="{{message}}"
+                            {% endif %}
+                        >
+                        {{ message }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            <br />
+        </div>
+        <div class="col-md-2"></div>
+    </div>
+</div>
+
+{% endblock content %}
+
 {% endblock content %}

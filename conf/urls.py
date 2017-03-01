@@ -13,7 +13,7 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-from registraion.backends.hmac.urls import RegistrationView
+# from registration.backends.hmac.urls import RegistrationView
 # from registration.forms import RegistrationFormTermsOfService
 
 urlpatterns = [
