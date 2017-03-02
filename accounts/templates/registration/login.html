@@ -27,9 +27,9 @@
         {% if form.errors %}
         {% endif %}
 
-<!-- was 'accounts:login' -->
+<!-- 'accounts:auth_login' ?? -->
     <form 
-        action="{% url 'accounts:auth_login' %}"
+        action="{% url 'accounts:login' %}"
         method="POST"
     >
         {% csrf_token %}

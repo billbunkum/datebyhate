@@ -17,6 +17,9 @@ class RegistrationForm(BootstrapFormMixin, RegistrationForm):
         model = User
         fields = ('username', 'email',)
 
+    class RegistrationFormNoFreeEmail:
+        bad_domains = ['*gmail.com',]
+
     def clean_password2(self):
         cd = self.cleaned_data
 
