@@ -3,6 +3,8 @@ from django.conf.urls import url, include
 from .forms import LoginForm, RegistrationForm
 from . import views
 
+# registration.backends.hmac.urls sets up the views from 'django.contrib.auth (login, logout, password reset, etc.)'
+
 urlpatterns = [
     # url('^', include('django.contrib.auth.urls')),
     url(r'^', include('registration.backends.hmac.urls')),
