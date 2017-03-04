@@ -9,27 +9,32 @@ from django.contrib.auth.models import User
 from .forms import RegistrationForm
 from registration.backends.hmac.views import RegistrationView, ActivationView
 
-class RegView(RegistrationView):
-
-    def __init__(self, request):
-        self.user = create_inactive_user(form)
-        self.activation_key = get_activation_key(user)
-        self.email_context = get_email_context(activation_key)
-        self.expiration_days = 7
-        self.site = get_current_site(request)
-        # user = User.objects.get(user=request.user)
-
-        self.context = {
-            "activation_key": self.activation_key,
-            "expiration_days": self.expiration_days,
-            "user": self.user,
-            "site": self.site,
-        }
+def send_email(registrationView, user):
+    #sending email ??using email stuffz??
+    registrationView.send_activation_email(user)
 
 def registration(request):
+    registrationView = RegistrationView()
+
     if request.method == "POST":
-        form = RegistrationForm(request.POST)
-        return redirect('accounts:registration_complete')
+        form = RegistrationForm()
+        if form.is_valid():
+            #creates dummy user before activation
+            user = registrationView.create_inactive_user(form)
+
+            #generates activation key from user info on form
+            activation_key = registrationView.get_activation_key(user)
+
+            #returns a DICT of values to use as 'template context' for activation email
+            context = registrationView.get_email_context(activation_key)
+
+            #setting email stuffz
+            email_body_template = "registration/activation_email.txt"
+            email_subject_template = "registration/activation_email_subject.txt"
+
+            send_email(registrationView, user)
+            #Notifes of an e-mail being sent
+            return redirect('accounts:registration_complete')
     else:
         form = RegistrationForm
     context = {
@@ -39,7 +44,6 @@ def registration(request):
 
 #informs user that an e-mail w/Activation info has been sent
 def registration_complete(request):
-    messages.success(request, 'Check your e-mail to activate your account.')
     return render(request, "registration/registration_complete.html")
 
 #used if Activation fails
