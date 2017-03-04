@@ -15,27 +15,38 @@ from registration.backends.hmac.views import RegistrationView
 # from django.template import RequestContext
 
 #OLD register view
-def register(request):
+# def register(request):
+#     if request.method == "POST":
+#         # form = RegistrationForm(request.POST)
+#         form = UserRegistrationForm(request.POST)
+#         if form.is_valid():
+#             new_user = form.save(commit=False)
+#             #need to clean data before persisting to db
+#             new_user.set_password(form.cleaned_data["password"])
+#             new_user.save()
+#             messages.success(request, 'Congrats! You now exist.')
+#             # return redirect('accounts:activate')
+#             #heading to accounts.urls for 'login' endpoint
+#             return redirect('accounts:login')
+#     else:
+#         # form = RegistrationForm
+#         form = UserRegistrationForm
+#     context = {
+#         "form": form,
+#     }
+#     # return render(request, "registration/registration_form.html", context)
+#     return render(request, "accounts/register.html", context)
+
+def registration(request):
     if request.method == "POST":
-        # form = RegistrationForm(request.POST)
-        form = UserRegistrationForm(request.POST)
-        if form.is_valid():
-            new_user = form.save(commit=False)
-            #need to clean data before persisting to db
-            new_user.set_password(form.cleaned_data["password"])
-            new_user.save()
-            messages.success(request, 'Congrats! You now exist.')
-            # return redirect('accounts:activate')
-            #heading to accounts.urls for 'login' endpoint
-            return redirect('accounts:login')
+        form = RegistrationForm(request.POST)
+        return redirect('accounts:registration_complete')
     else:
-        # form = RegistrationForm
-        form = UserRegistrationForm
+        form = RegistrationForm
     context = {
         "form": form,
     }
-    # return render(request, "registration/register_form.html", context)
-    return render(request, "accounts/register.html", context)
+    return render(request, "registration/registration_form.html", context)
 
 #informs user that an e-mail w/Activation info has been sent
 def registration_complete(request):
