@@ -9,32 +9,39 @@ from django.contrib.auth.models import User
 from .forms import RegistrationForm
 from registration.backends.hmac.views import RegistrationView, ActivationView
 
-def send_email(registrationView, user):
-    #sending email ??using email stuffz??
-    registrationView.send_activation_email(user)
+import pdb #USE as: pdb.set_trace()
+
+# def send_email(registrationView, user):
+#     #sending email ??using email stuffz??
+#     registrationView.send_activation_email(user)
 
 def registration(request):
-    registrationView = RegistrationView()
+    regView = RegistrationView()
 
     if request.method == "POST":
-        form = RegistrationForm()
+        form = RegistrationForm(request.POST)
+
         if form.is_valid():
-            #creates dummy user before activation
-            user = registrationView.create_inactive_user(form)
+            user = form.save(commit=False)
+            user.set_password(form.cleaned_data["password1"])
+            # user.save()
 
             #generates activation key from user info on form
-            activation_key = registrationView.get_activation_key(user)
-
+            activation_key = regView.get_activation_key(user)
             #returns a DICT of values to use as 'template context' for activation email
-            context = registrationView.get_email_context(activation_key)
+            # pdb.set_trace()
+            context = regView.get_email_context(activation_key)
 
             #setting email stuffz
             email_body_template = "registration/activation_email.txt"
             email_subject_template = "registration/activation_email_subject.txt"
 
-            send_email(registrationView, user)
+            #creates dummy user before activation; invokes send_activation_email(user)
+            regView.create_inactive_user(form)
+
+            # send_email(registrationView, user)
             #Notifes of an e-mail being sent
-            return redirect('accounts:registration_complete')
+            return redirect('accounts:registration-complete')
     else:
         form = RegistrationForm
     context = {
