@@ -11,10 +11,6 @@ from registration.backends.hmac.views import RegistrationView, ActivationView
 
 import pdb #USE as: pdb.set_trace()
 
-# def send_email(registrationView, user):
-#     #sending email ??using email stuffz??
-#     registrationView.send_activation_email(user)
-
 def registration(request):
     regView = RegistrationView()
 
@@ -25,21 +21,21 @@ def registration(request):
             user = form.save(commit=False)
             user.set_password(form.cleaned_data["password1"])
             # user.save()
+            # pdb.set_trace()
 
             #generates activation key from user info on form
             activation_key = regView.get_activation_key(user)
             #returns a DICT of values to use as 'template context' for activation email
-            # pdb.set_trace()
-            context = regView.get_email_context(activation_key)
 
-            #setting email stuffz
-            email_body_template = "registration/activation_email.txt"
-            email_subject_template = "registration/activation_email_subject.txt"
+            context = email_context(activation_key)
+            # regView.get_email_context(activation_key)
+            # #setting email stuffz
+            # email_body_template = "registration/activation_email.txt"
+            # email_subject_template = "registration/activation_email_subject.txt"
 
             #creates dummy user before activation; invokes send_activation_email(user)
-            regView.create_inactive_user(form)
-
-            # send_email(registrationView, user)
+            user = regView.create_inactive_user(form)
+            regView.send_activation_email(user)
             #Notifes of an e-mail being sent
             return redirect('accounts:registration-complete')
     else:
@@ -48,6 +44,16 @@ def registration(request):
         "form": form,
     }
     return render(request, "registration/registration_form.html", context)
+
+def email_context(activation_key):
+    email_subject_template = "registration/activation_email_subject.txt"
+    email_body_template = "registration/activation_email.txt"
+
+    context = {
+        "email_subject_template": email_subject_template,
+        "email_body_template": email_body_template
+    }
+    return context
 
 #informs user that an e-mail w/Activation info has been sent
 def registration_complete(request):
