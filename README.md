@@ -1,4 +1,8 @@
-# DJANGO SEED
+# Reg branch
++ Used to setup/troubleshoot Django's 2-step HMAC 'email' verfication.
++ Most current work/problems reside w/in: `accounts/urls` and `accounts/views`
+
+# DJANGO SEED (Matt Smith)
 
 Starting point for Django, Django Rest Framework, Angular, Webpack and Gulp projects.
 
