@@ -22,10 +22,7 @@ def registration(request):
             new_user = form.save(commit=False)
             new_user.set_password(form.cleaned_data["password1"])
 
-            activation_key = get_activation_key(new_user)
-
-            #sets email_subject_template & email_body_template but I'm not sure I need to do this.
-            email_context = email_context()
+            activation_key = regView.get_activation_key(new_user)
 
             regView.create_inactive_user(new_user)
             #calls send_activation_email('user')
