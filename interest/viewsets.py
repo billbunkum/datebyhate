@@ -3,8 +3,8 @@ from rest_framework.generics import RetrieveAPIView
 
 from django.contrib.auth.models import User
 
-from .models import Interest, Film
-from .serializers import InterestSerializer, UserSerializer, FilmSerializer, CreateInterestSerializer
+from .models import Interest, Film, UserProfile
+from .serializers import InterestSerializer, UserSerializer, FilmSerializer, CreateInterestSerializer, UserProfileSerializer, UpdateUserProfileSerializer
 
 # for GET requests only
 class InterestViewSet(viewsets.ModelViewSet):
@@ -37,3 +37,11 @@ class GetHateBuddiesAngst(viewsets.ModelViewSet):
 
     def get_others_angst(self):
         return self.request.user.interest_set.all()
+
+class UserProfileViewSet(viewsets.ModelViewSet):
+    queryset = UserProfile.objects.all()
+    serializer_class = UserProfileSerializer
+
+class UpdateUserProfileViewSet(viewsets.ModelViewSet):
+    queryset = UserProfile.objects.all()
+    serializer_class = UpdateUserProfileSerializer

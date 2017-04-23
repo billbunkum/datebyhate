@@ -245,6 +245,7 @@ function interestPageController(omdbAPI, interestAPIService, filmAPIService, meS
         }
     }
 
+// ADD REQUEST/ DENY ability
 // gets hate buddy's e-mail w/ hateBuddyID
     function getSocialLink(hateBuddyID) {
         ctrl.hateBuddySocial = "";
