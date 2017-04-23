@@ -24,13 +24,13 @@ SECRET_KEY = os.environ['SECRET_KEY']
 ALLOWED_HOSTS = []
 
 #django-registration for e-mail verification
-ACCOUNT_ACTIVATION_DAYS = 1
+ACCOUNT_ACTIVATION_DAYS = 7
 
 # Application definition
 
 INSTALLED_APPS = (
     'django.contrib.admin',
-    'django.contrib.sites',
+    # 'django.contrib.sites',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',

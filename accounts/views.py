@@ -19,10 +19,14 @@ def registration(request):
         if form.is_valid():
 
             #calls create_inactive_user(form)
-            temp_user = regView.register(form)
+            regView.register(form)
+            temp_user = "ballsack feet"
+            context = {
+                "temp_user": temp_user,
+            }
 
             #informs user that an e-mail w/Activation info has been sent
-            return render(request, "registration/registration_complete.html")
+            return render(request, "registration/registration_complete.html", context)
 
     else:
         form = RegistrationForm
