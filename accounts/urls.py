@@ -1,4 +1,5 @@
 from django.conf.urls import url, include
+from django.contrib.auth import views
 
 from .forms import LoginForm, RegistrationForm
 from . import views
